@@ -2805,7 +2805,7 @@
                         <right>70</right>
                         <width>1422</width>
                         <orientation>vertical</orientation>
-                        <top>672</top>
+                        <bottom>88</bottom>
                         <itemgap>10</itemgap>
                         <control type="label">
                             <font>SmallBold</font>
@@ -2837,7 +2837,7 @@
                             <right>70</right>
                             <width>1422</width>
                             <orientation>vertical</orientation>
-                            <top>672</top>
+                            <bottom>88</bottom>
                             <itemgap>10</itemgap>
                             <control type="label">
                                 <font>SmallBold</font>
@@ -2900,7 +2900,7 @@
                         <right>70</right>
                         <width>1422</width>
                         <orientation>vertical</orientation>
-                        <top>822</top>
+                        <bottom>88</bottom>
                         <itemgap>-20</itemgap>
                         <control type="label">
                             <font>SmallBold</font>
@@ -3877,26 +3877,26 @@
             <control type="grouplist" id="301">
                 <include>Animation.NowPlaying.Widget.Fade</include>
                 <include content="def_height" condition="Skin.HasSetting(homemenu.netflix) + !Skin.HasSetting(home.widgets.show.reflections) | Skin.HasSetting(homemenu.clean.flix)">
-                    <param name="height" value="765" />
+                    <param name="height" value="860" />
                 </include>
                 <include content="def_height" condition="!Skin.HasSetting(homemenu.netflix) + !Skin.HasSetting(home.widgets.show.reflections)">
-                    <param name="height" value="770" />
+                    <param name="height" value="860" />
                 </include>
                 <include content="def_height" condition="Skin.HasSetting(homemenu.netflix) + Skin.HasSetting(home.widgets.show.reflections)">
-                    <param name="height" value="830" />
+                    <param name="height" value="900" />
                 </include>
                 <include content="def_height" condition="!Skin.HasSetting(homemenu.netflix) + Skin.HasSetting(home.widgets.show.reflections)">
-                    <param name="height" value="830" />
+                    <param name="height" value="900" />
                 </include>
                 <orientation>vertical</orientation>
                 <include content="def_bottom" condition="Skin.HasSetting(homemenu.clean.flix) + !Skin.HasSetting(hidewidgettitle)">
-                    <param name="bottom" value="238" />
+                    <param name="bottom" value="24" />
                 </include>
                 <include content="def_bottom" condition="!Skin.HasSetting(home.widgets.show.reflections) | Skin.HasSetting(homemenu.clean.flix)">
-                    <param name="bottom" value="188" />
+                    <param name="bottom" value="24" />
                 </include>
                 <include content="def_bottom" condition="Skin.HasSetting(home.widgets.show.reflections)">
-                    <param name="bottom" value="160" />
+                    <param name="bottom" value="24" />
                 </include>
                 <width>1920</width>
                 <onup condition="!Skin.HasSetting(disable.widgets.onup.go.back.to.last.item)">SetFocus(8888)</onup>

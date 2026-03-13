@@ -909,12 +909,19 @@
             <animation effect="fade" start="100" end="75" time="0" condition="true">Conditional</animation>
         </control>
 
+        <control type="image" description="Poster Views Solid Background">
+            <include>Dimensions_Fullscreen</include>
+            <texture colordiffuse="FF1C1C1C">colors/white.png</texture>
+            <visible>Window.IsVisible(MyVideoNav.xml) + [Control.IsVisible(53) | Control.IsVisible(55) | Control.IsVisible(58) | Control.IsVisible(500) | Control.IsVisible(517) | Control.IsVisible(555)]</visible>
+        </control>
+
         <!-- Trailer Window Home -->
         <include condition="Skin.HasSetting(home.netflix.autoplay.trailer)">TrailerWindow</include>
 
         <!-- Global Fanart -->
         <control type="multiimage" description="Fanart">
             <visible>!Skin.HasSetting(EnableEffects)</visible>
+            <visible>![Window.IsVisible(MyVideoNav.xml) + [Control.IsVisible(53) | Control.IsVisible(55) | Control.IsVisible(58) | Control.IsVisible(500) | Control.IsVisible(517) | Control.IsVisible(555)]]</visible>
             <include condition="![ [$EXP[HomeIsSpotlight] | $EXP[HomeIsClassic] | $EXP[HomeIsModern]] + Window.IsVisible(home)]">GlobalBackgroundFade</include>
             <visible>!Player.HasMedia | [!Skin.HasSetting(global.showvideo) + Player.HasVideo] | [!Skin.HasSetting(global.showvisualisation) + Player.HasAudio] | [Skin.HasSetting(global.showvisualisation) + String.IsEmpty(Visualisation.Name) + Player.HasAudio]</visible>
             <visible>!Skin.HasSetting(global.hidefanart) | Window.IsVisible(home)</visible>
@@ -932,6 +939,7 @@
         <!-- BLUR Global Fanart -->
         <control type="multiimage" description="Fanart">
             <visible>Skin.HasSetting(EnableEffects) + !Window.IsVisible(home)</visible>
+            <visible>![Window.IsVisible(MyVideoNav.xml) + [Control.IsVisible(53) | Control.IsVisible(55) | Control.IsVisible(58) | Control.IsVisible(500) | Control.IsVisible(517) | Control.IsVisible(555)]]</visible>
             <include>GlobalBackgroundFadeBlur</include>
             <visible>!Player.HasMedia | [!Skin.HasSetting(global.showvideo) + Player.HasVideo] | [!Skin.HasSetting(global.showvisualisation) + Player.HasAudio] | [Skin.HasSetting(global.showvisualisation) + String.IsEmpty(Visualisation.Name) + Player.HasAudio]</visible>
             <visible>!Skin.HasSetting(global.hidefanart) | Window.IsVisible(home)</visible>
@@ -950,6 +958,7 @@
         <!-- BLUR Global Fanart Home-->
         <control type="multiimage" description="Fanart">
             <visible>Skin.HasSetting(EnableEffects) + Window.IsVisible(home)</visible>
+            <visible>![Window.IsVisible(MyVideoNav.xml) + [Control.IsVisible(53) | Control.IsVisible(55) | Control.IsVisible(58) | Control.IsVisible(500) | Control.IsVisible(517) | Control.IsVisible(555)]]</visible>
             <include condition="!Skin.HasSetting(BlurOnHome) + !$EXP[HomeIsSpotlight] + !$EXP[HomeIsClassic] + !$EXP[HomeIsModern]">GlobalBackgroundFade</include>
             <include condition="Skin.HasSetting(BlurOnHome)">GlobalBackgroundFadeBlur2</include>
             <visible>!Player.HasMedia | [!Skin.HasSetting(global.showvideo) + Player.HasVideo] | [!Skin.HasSetting(global.showvisualisation) + Player.HasAudio] | [Skin.HasSetting(global.showvisualisation) + String.IsEmpty(Visualisation.Name) + Player.HasAudio]</visible>
@@ -970,6 +979,7 @@
         <!-- Fallback -->
         <control type="image" description="Fanart Fallback always">
             <include>GlobalBackgroundFade</include>
+            <visible>![Window.IsVisible(MyVideoNav.xml) + [Control.IsVisible(53) | Control.IsVisible(55) | Control.IsVisible(58) | Control.IsVisible(500) | Control.IsVisible(517) | Control.IsVisible(555)]]</visible>
             <visible>!Player.HasMedia | [!Skin.HasSetting(global.showvideo) + Player.HasVideo] | [!Skin.HasSetting(global.showvisualisation) + Player.HasAudio] | [Skin.HasSetting(global.showvisualisation) + String.IsEmpty(Visualisation.Name) + Player.HasAudio]</visible>
             <include>Dimensions_Fullscreen</include>
             <visible>!Window.IsVisible(home) + Skin.HasSetting(global.hidefanart) + !String.IsEmpty(Skin.String(fanart.fallback))</visible>
@@ -1185,6 +1195,97 @@
         <value condition="$EXP[IsVideoHDR]">hdr</value>
         <value condition="$EXP[IsVideoHLG]">hlg</value>
         <value condition="$EXP[IsVideoDolbyVision]">dolby vision</value>
+    </variable>
+
+    <variable name="FooterVideoCodecVar">
+        <value condition="String.IsEqual(ListItem.VideoCodec,av1)">AV1</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,avc1)">AVC-1</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,div3) | String.IsEqual(ListItem.VideoCodec,divx) | String.IsEqual(ListItem.VideoCodec,dx50)">DivX</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,flv)">FLV</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,h264)">H.264</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,hev1) | String.IsEqual(ListItem.VideoCodec,hevc) | String.IsEqual(ListItem.VideoCodec,hvc1)">H.265</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,mpeg1)">MPEG-1</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,mpeg2) | String.IsEqual(ListItem.VideoCodec,mpeg2video)">MPEG-2</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,mp4v) | String.IsEqual(ListItem.VideoCodec,mpeg4)">MPEG-4</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,theora)">Theora</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,vc1) | String.IsEqual(ListItem.VideoCodec,vc-1) | String.IsEqual(ListItem.VideoCodec,wvc1)">VC-1</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,vp8)">VP8</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,vp9)">VP9</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,wmv) | String.IsEqual(ListItem.VideoCodec,wmv3)">WMV</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,xvid)">XviD</value>
+        <value>$INFO[ListItem.VideoCodec]</value>
+    </variable>
+
+    <variable name="FooterVideoResolutionTypeVar">
+        <value condition="String.IsEqual(ListItem.VideoResolution,480) | String.IsEqual(ListItem.VideoResolution,540) | String.IsEqual(ListItem.VideoResolution,576)">SD</value>
+        <value condition="String.IsEqual(ListItem.VideoResolution,720) | String.IsEqual(ListItem.VideoResolution,1080)">HD</value>
+        <value condition="String.IsEqual(ListItem.VideoResolution,4K) | String.IsEqual(ListItem.VideoResolution,8K)">UHD</value>
+    </variable>
+
+    <variable name="FooterVideoHDRTypeVar">
+        <value condition="String.IsEqual(ListItem.HdrType,dolbyvision)">Dolby Vision</value>
+        <value condition="String.IsEqual(ListItem.HdrType,hdr10)">$INFO[ListItem.HdrType]</value>
+        <value condition="String.IsEqual(ListItem.HdrType,hlg)">HLG</value>
+        <value condition="!String.IsEmpty(ListItem.HdrType)">$INFO[ListItem.HdrType]</value>
+        <value condition="$EXP[IsVideoHDR10Plus]">HDR10+</value>
+        <value condition="$EXP[IsVideoHDR10]">HDR10</value>
+        <value condition="$EXP[IsVideoHDR]">HDR</value>
+        <value condition="$EXP[IsVideoHLG]">HLG</value>
+        <value condition="$EXP[IsVideoDolbyVision]">Dolby Vision</value>
+    </variable>
+
+    <variable name="FooterAudioCodecVar">
+        <value condition="String.IsEqual(ListItem.AudioCodec,aac)">AAC</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,aac_lc)">AAC-LC</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,aac_ssr)">AAC-SSR</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,aac_ltp)">AAC-LTP</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,he_aac) | String.IsEqual(ListItem.AudioCodec,he_aac_v2)">HE-AAC</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,ac3)">Dolby Digital</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dolbydigital)">Dolby Digital</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,eac3) | String.IsEqual(ListItem.AudioCodec,ddp)">Dolby Digital+</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,truehd)">Dolby TrueHD</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dca) | String.IsEqual(ListItem.AudioCodec,dts)">DTS</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dtshd_hra) | String.IsEqual(ListItem.AudioCodec,dts-hd hra) | String.IsEqual(ListItem.AudioCodec,dtshd hra)">DTS-HD HRA</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dtshd_ma) | String.IsEqual(ListItem.AudioCodec,dts-hd ma) | String.IsEqual(ListItem.AudioCodec,dtshd ma) | String.IsEqual(ListItem.AudioCodec,dtsma)">DTS-HD MA</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dtshd_ma_x) | String.IsEqual(ListItem.AudioCodec,dts-x) | String.IsEqual(ListItem.AudioCodec,dtsx) | String.IsEqual(ListItem.AudioCodec,dts x)">DTS-HD MA</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dtshd_ma_x_imax) | String.IsEqual(ListItem.AudioCodec,dts-x imax) | String.IsEqual(ListItem.AudioCodec,dtsx imax)">DTS-HD MA</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,flac)">FLAC</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,mp3)">MP3</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,ogg)">OGG</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,opus)">OPUS</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,pcm) | String.IsEqual(ListItem.AudioCodec,lpcm)">LPCM</value>
+        <value>$INFO[ListItem.AudioCodec]</value>
+    </variable>
+
+    <variable name="FooterAudioCodecDisplayVar">
+        <value condition="String.IsEqual(ListItem.AudioCodec,eac3_ddp_atmos) | String.IsEqual(ListItem.AudioCodec,eac3 atmos) | String.IsEqual(ListItem.AudioCodec,ddp atmos) | String.IsEqual(ListItem.AudioCodec,dolby digital plus atmos)">Dolby Digital+ Atmos</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,truehd_atmos) | String.IsEqual(ListItem.AudioCodec,truehd atmos) | String.IsEqual(ListItem.AudioCodec,truehd-atmos) | String.IsEqual(ListItem.AudioCodec,true hd atmos)">Dolby TrueHD Atmos</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dtshd_ma_x) | String.IsEqual(ListItem.AudioCodec,dts-x) | String.IsEqual(ListItem.AudioCodec,dtsx) | String.IsEqual(ListItem.AudioCodec,dts x)">DTS:X</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dtshd_ma_x_imax) | String.IsEqual(ListItem.AudioCodec,dts-x imax) | String.IsEqual(ListItem.AudioCodec,dtsx imax)">DTS:X IMAX</value>
+        <value>$VAR[FooterAudioCodecVar]</value>
+    </variable>
+
+    <variable name="FooterAudioChannelsVar">
+        <value condition="String.IsEqual(ListItem.AudioChannels,1)">1.0</value>
+        <value condition="String.IsEqual(ListItem.AudioChannels,2)">2.0</value>
+        <value condition="String.IsEqual(ListItem.AudioChannels,3)">2.1</value>
+        <value condition="String.IsEqual(ListItem.AudioChannels,4)">4.0</value>
+        <value condition="String.IsEqual(ListItem.AudioChannels,5)">5.0</value>
+        <value condition="String.IsEqual(ListItem.AudioChannels,6)">5.1</value>
+        <value condition="String.IsEqual(ListItem.AudioChannels,7)">6.1</value>
+        <value condition="String.IsEqual(ListItem.AudioChannels,8)">7.1</value>
+        <value>$INFO[ListItem.AudioChannels(DefaultLayout)]</value>
+    </variable>
+
+    <variable name="FooterAudioStatusVar">
+        <value condition="!String.IsEmpty(ListItem.AudioCodec) + !String.IsEmpty(ListItem.AudioChannels)">$VAR[FooterAudioCodecDisplayVar] • $VAR[FooterAudioChannelsVar]</value>
+        <value condition="!String.IsEmpty(ListItem.AudioCodec)">$VAR[FooterAudioCodecDisplayVar]</value>
+        <value>$VAR[FooterAudioChannelsVar]</value>
+    </variable>
+
+    <variable name="FooterMediaFlagsLabel">
+        <value condition="ListItem.IsStereoscopic">3D$INFO[ListItem.VideoResolution,  | ]$VAR[FooterVideoResolutionTypeVar, ]$VAR[FooterVideoHDRTypeVar, | ]$VAR[FooterAudioStatusVar, | ]</value>
+        <value>$INFO[ListItem.VideoResolution]$VAR[FooterVideoResolutionTypeVar, ]$VAR[FooterVideoHDRTypeVar, | ]$VAR[FooterAudioStatusVar, | ]</value>
     </variable>
 
     <include name="weatherlist">

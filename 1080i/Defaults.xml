@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Foundation -->
 <includes>
-    <constant name="NavBarPad">112</constant>
+    <constant name="NavBarPad">30</constant>
     <constant name="SidePad">80</constant>
     <constant name="PosterPad">216</constant>
     <constant name="DialogInfoTop">210</constant>

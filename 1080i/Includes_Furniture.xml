@@ -621,8 +621,34 @@
     </include>
     
     <include name="Furniture_Flags_Include">
+        <control type="button">
+            <visible>[Container.Content(movies) | Container.Content(files) | Container.Content(musicvideos) | Container.Content(episodes) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons)] | [Window.IsVisible(home) + ControlGroup(301).HasFocus() + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [Skin.HasSetting(home.vertical) + Skin.HasSetting(home.vertical.widgets)] + !Skin.HasSetting(hide.furniture.flags.vertical.widgets)]</visible>
+            <visible>!String.IsEqual(ListItem.Label,..)</visible>
+            <include content="def_right" condition="!Skin.HasSetting(furniture.clock) + $PARAM[position_low]">
+                <param name="right" value="0" />
+            </include>
+            <include content="def_top" condition="!$PARAM[position_low]">
+                <param name="top" value="72" />
+            </include>
+            <include content="def_bottom" condition="$PARAM[position_low]">
+                <param name="bottom" value="0" />
+            </include>
+            <height>28</height>
+            <width>auto</width>
+            <enable>false</enable>
+            <align>center</align>
+            <aligny>center</aligny>
+            <font>Tiny</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <disabledcolor>FFFFFFFF</disabledcolor>
+            <textoffsetx>12</textoffsetx>
+            <textoffsety>0</textoffsety>
+            <texturefocus border="5" colordiffuse="FF111111">common/box.png</texturefocus>
+            <texturenofocus border="5" colordiffuse="FF111111">common/box.png</texturenofocus>
+            <label>$VAR[FooterMediaFlagsLabel]</label>
+        </control>
         <control type="grouplist">
-            <visible>!Skin.HasSetting(furniture.coloredicons)</visible>
+            <visible>false</visible>
             <visible>[Container.Content(movies) | Container.Content(files) | Container.Content(musicvideos) | Container.Content(episodes) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons)] | [Window.IsVisible(home) + ControlGroup(301).HasFocus() + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [Skin.HasSetting(home.vertical) + Skin.HasSetting(home.vertical.widgets)] + !Skin.HasSetting(hide.furniture.flags.vertical.widgets)]</visible>
             <visible>!String.IsEqual(ListItem.Label,..)</visible>
             <include content="def_left" condition="!$PARAM[position_low]">
@@ -1075,7 +1101,7 @@
             </control>
         </control>
         <control type="grouplist">
-            <visible>Skin.HasSetting(furniture.coloredicons)</visible>
+            <visible>false</visible>
             <visible>[Container.Content(movies) | Container.Content(files) | Container.Content(musicvideos) | Container.Content(episodes) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)] | [Window.IsVisible(home) + ControlGroup(301).HasFocus() + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [Skin.HasSetting(home.vertical) + Skin.HasSetting(home.vertical.widgets)] + !Skin.HasSetting(hide.furniture.flags.vertical.widgets)]</visible>
             <visible>!String.IsEqual(ListItem.Label,..)</visible>
             <include content="def_left" condition="!$PARAM[position_low]">
@@ -2548,6 +2574,7 @@
             <top>SidePad</top>
             <left>SidePad</left>
             <visible>!Skin.HasSetting(furniture.header)</visible>
+            <visible>![Window.IsVisible(MyVideoNav.xml) + [Control.IsVisible(53) | Control.IsVisible(55) | Control.IsVisible(58) | Control.IsVisible(500) | Control.IsVisible(517) | Control.IsVisible(555)]]</visible>
             <include>Animation.FurnitureVisibleHomeLabel</include>
             <orientation>horizontal</orientation>
             <itemgap>24</itemgap>

@@ -217,16 +217,7 @@
                         <top>10</top>
                         <right>10</right>
                         <bottom>10</bottom>
-                        <texture colordiffuse="Fallback" border="4" background="true">common/diffuse_box.png</texture>
-                    </control>
-                    <control type="image">
-                        <left>10</left>
-                        <top>10</top>
-                        <right>10</right>
-                        <bottom>10</bottom>
-                        <fadetime>PosterFanartFadetime</fadetime>
-                        <aspectratio align="center" aligny="center" scalediffuse="false">scale</aspectratio>
-                        <texture diffuse="diffuse/widgetfanart_new.png" background="true">$VAR[FanartImage]</texture>
+                        <texture colordiffuse="FF111111" border="4" background="true">common/box.png</texture>
                     </control>
                     <control type="image">
                         <left>10</left>

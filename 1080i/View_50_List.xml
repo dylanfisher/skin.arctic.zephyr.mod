@@ -182,7 +182,7 @@
                 <fadetime>PosterFanartFadetime</fadetime>
                 <aspectratio align="center" aligny="center" scalediffuse="false">scale</aspectratio>
                 <texture flipy="true" diffuse="diffuse/listposter-ref-widgets.png" background="true">$VAR[PosterImage]</texture>
-                <visible>Skin.HasSetting(show.reflections)</visible>
+                <visible>false</visible>
             </control>
             <control type="image">
                 <centertop>PosterH</centertop>
@@ -201,14 +201,7 @@
             <control type="image">
                 <width>PosterW</width>
                 <height>PosterH</height>
-                <texture border="5" colordiffuse="FF181818">common/box.png</texture>
-            </control>
-            <control type="image">
-                <width>PosterW</width>
-                <height>PosterH</height>
-                <fadetime>PosterFanartFadetime</fadetime>
-                <aspectratio align="center" aligny="center" scalediffuse="false">scale</aspectratio>
-                <texture diffuse="diffuse/listposter2.png" background="true">$VAR[PosterImage]</texture>
+                <texture border="5" colordiffuse="FF111111">common/box.png</texture>
             </control>
             <control type="image">
                 <width>PosterW</width>
