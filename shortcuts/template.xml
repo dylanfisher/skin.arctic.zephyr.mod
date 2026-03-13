@@ -253,7 +253,7 @@
         <property name="widgetauto" tag="property" attribute="name|widgetAuto" value="$NUMBER[20000]">20000</property>
         <property name="widgetauto" tag="property" attribute="name|widgetAuto" value="$NUMBER[25000]">25000</property>
         <property name="widgetlisttype" tag="property" attribute="name|widgetListType"/>
-        <property name="widgetlisttype">fixedlist</property>
+        <property name="widgetlisttype">list</property>
         <property name="widgetclearlogothumb" tag="property" attribute="name|widgetClearLogoThumb" value="no">false</property>
         <property name="widgetclearlogothumb">true</property>
         <property name="aspectratio" tag="property" attribute="name|widgetAspectRatio"/>
@@ -439,7 +439,7 @@
         <property name="widgetauto" tag="property" attribute="name|widgetAuto.2" value="$NUMBER[20000]">20000</property>
         <property name="widgetauto" tag="property" attribute="name|widgetAuto.2" value="$NUMBER[25000]">25000</property>
         <property name="widgetlisttype" tag="property" attribute="name|widgetListType.2"/>
-        <property name="widgetlisttype">fixedlist</property>
+        <property name="widgetlisttype">list</property>
         <property name="widgetclearlogothumb" tag="property" attribute="name|widgetClearLogoThumb.2" value="no">false</property>
         <property name="widgetclearlogothumb">true</property>
         <property name="aspectratio" tag="property" attribute="name|widgetAspectRatio.2"/>
@@ -607,7 +607,7 @@
         <property name="widgetauto" tag="property" attribute="name|widgetAuto.3" value="$NUMBER[20000]">20000</property>
         <property name="widgetauto" tag="property" attribute="name|widgetAuto.3" value="$NUMBER[25000]">25000</property>
         <property name="widgetlisttype" tag="property" attribute="name|widgetListType.3"/>
-        <property name="widgetlisttype">fixedlist</property>
+        <property name="widgetlisttype">list</property>
         <property name="widgetclearlogothumb" tag="property" attribute="name|widgetClearLogoThumb.3" value="no">false</property>
         <property name="widgetclearlogothumb">true</property>
         <property name="aspectratio" tag="property" attribute="name|widgetAspectRatio.3"/>
@@ -775,7 +775,7 @@
         <property name="widgetauto" tag="property" attribute="name|widgetAuto.4" value="$NUMBER[20000]">20000</property>
         <property name="widgetauto" tag="property" attribute="name|widgetAuto.4" value="$NUMBER[25000]">25000</property>
         <property name="widgetlisttype" tag="property" attribute="name|widgetListType.4"/>
-        <property name="widgetlisttype">fixedlist</property>
+        <property name="widgetlisttype">list</property>
         <property name="widgetclearlogothumb" tag="property" attribute="name|widgetClearLogoThumb.4" value="no">false</property>
         <property name="widgetclearlogothumb">true</property>
         <property name="aspectratio" tag="property" attribute="name|widgetAspectRatio.4"/>
@@ -943,7 +943,7 @@
         <property name="widgetauto" tag="property" attribute="name|widgetAuto.5" value="$NUMBER[20000]">20000</property>
         <property name="widgetauto" tag="property" attribute="name|widgetAuto.5" value="$NUMBER[25000]">25000</property>
         <property name="widgetlisttype" tag="property" attribute="name|widgetListType.5"/>
-        <property name="widgetlisttype">fixedlist</property>
+        <property name="widgetlisttype">list</property>
         <property name="widgetclearlogothumb" tag="property" attribute="name|widgetClearLogoThumb.5" value="no">false</property>
         <property name="widgetclearlogothumb">true</property>
         <property name="aspectratio" tag="property" attribute="name|widgetAspectRatio.5"/>
@@ -1111,7 +1111,7 @@
         <property name="widgetauto" tag="property" attribute="name|widgetAuto.6" value="$NUMBER[20000]">20000</property>
         <property name="widgetauto" tag="property" attribute="name|widgetAuto.6" value="$NUMBER[25000]">25000</property>
         <property name="widgetlisttype" tag="property" attribute="name|widgetListType.6"/>
-        <property name="widgetlisttype">fixedlist</property>
+        <property name="widgetlisttype">list</property>
         <property name="widgetclearlogothumb" tag="property" attribute="name|widgetClearLogoThumb.6" value="no">false</property>
         <property name="widgetclearlogothumb">true</property>
         <property name="aspectratio" tag="property" attribute="name|widgetAspectRatio.6"/>
@@ -1258,7 +1258,7 @@
         <property name="widgetauto" tag="property" attribute="name|widgetAuto" value="$NUMBER[20000]">20000</property>
         <property name="widgetauto" tag="property" attribute="name|widgetAuto" value="$NUMBER[25000]">25000</property>
         <controls>
-            <control type="fixedlist" id="301">
+            <control type="list" id="301">
                 <skinshortcuts>visibility</skinshortcuts>
                 <visible>!String.Contains(Container(300).ListItem.Property(widget),weather)</visible>
                 <animation effect="fade" start="100" end="66" time="400" condition="!Control.HasFocus(301) + !Skin.HasSetting(widgets.fade)">Conditional</animation>
@@ -1276,7 +1276,6 @@
                 <onup>300</onup>
                 <ondown>300</ondown>
                 <onclick condition="$SKINSHORTCUTS[IsGTO]">RunPlugin(plugin://script.service.gto?action=info&amp;item=$INFO[ListItem.Property(Item)])</onclick>
-                <focusposition>0</focusposition>
                 <preloaditems>2</preloaditems>
                 <orientation>horizontal</orientation>
                 <pagecontrol>60</pagecontrol>

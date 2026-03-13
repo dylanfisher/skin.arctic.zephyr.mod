@@ -1,0 +1,296 @@
+==Introduction==
+Estuary is Kodi's default skin, so it makes a good example of how to get start with editing a skin
+
+[[File:Estuary-logo.png]]
+
+== Setting up a developer environment for skinning ==
+First thing we need to do is setup a simple skin development environment:
+
+To get the most out of it you'll need to either make a new keymap.xml or add this to your existing one.
+
+ <keymap>
+    <global>
+        <keyboard>
+            <F5>ReloadSkin()</F5>
+            <F7>Notification(Testing 123,Hello world)</F7>
+            <F8>Skin.ToggleDebug()</F8>
+        </keyboard>
+    </global>
+ </keymap>
+
+
+You will need to copy this keymap.xml file into the Kodi userdata folder. In our example, we are using windows so I have copied this file into the C:\Users\user\AppData\Roaming\Kodi\userdata\keymaps folder.
+
+Now we need a text editor to actually edit the files. Any text editor will work but we recommend something that can open multiple files at once such as Sublime Text or Notepad++
+
+== Testing your enviroment ==
+
+Lets launch Kodi and try out our new skinners keymap features.
+
+The following keys will then activate the corresponding action:
+
+ F5 - Reload skin (''used to see any changes instantly without restarting Kodi'')
+ F7 - Activated the KaiDialogToast.xml (''used to display the notification dialog'')
+ F8 - Show/Hide the Debug Info (''used to display the currently active windows or dialogs'')
+
+As you can see all these features are incredibly important to a skinner.
+
+[[File:Skinners_keymap_kodi.jpg]]
+
+== Structure of Estuary ==
+The default skin is very nicely laid out in actually quite a simple way. In our case on Windows, you can access the skin files in this folder C:\Program Files (x86)\Kodi\addons\skin.estuary\xml
+
+Below are some explanations of the files you will see in the Estuary XML folder:
+
+The file "Home.xml" is the basic home screen you see on first load of Kodi.
+
+Files that start with "My" are the main sub windows from the main screen such as Music or TVShows.
+
+Files that start with "Includes_" are all files that incorporate common elements that can be used all over the skin.
+
+Files that start with "Dialogue_" are all popups you see in the use of Kodi
+
+Files that start with "View_" are all the specific views you see in the skin, such as wide list or the Poster view for example.
+
+Files that start with "Settings" are simply to detail the settings menu.
+
+As you can probably tell, editing a skin is actually pretty logical and great effort has been made by the original developers to make it easy to understand.
+
+
+
+
+== Making your first skin edit ==
+
+As an example here, I am going to show you how to add a feature that was important to me but missing in the standard Estuary release.
+
+This example will show you how to add a music rating to the wide list view.
+
+
+[[File:Estuary mod music1.jpg]]
+
+
+Currently the rating only shows under the album artwork when you have a single track focused on the right.
+
+I will change this so that every rating shows next to each track name even when not focused.
+
+First thing we need to do is find out what files to edit. Now this is pretty easy because we can press F8 on the keyboard to see the debug screen in Kodi.
+
+Now browse to the screen you want to edit in Kodi and the debug text will change. In this case its changed to "MyMusicNav.xml" and Focus is "55 (Fixed list)".
+
+
+[[File:Estuary_mod_music2.jpg]]
+
+
+So go ahead and open these 2 files: "MyMusicNav.xml" and "View_55_WideList.xml". Its also important that we open the "includes.xml" file as this has many common elements that will help us.
+
+At this point you may find it useful to start test deleting bits of the "View_55_WideList.xml". Try deleting different containers and control elements in the XML file.
+
+You should quickly learn what bits do what with this method. For example if I remove the <itemlayout height="80" condition="Container.Content(songs)"> code section, all the track listings disappear!
+
+Now we know what bits do what, we can start to edit. Lets look at this code:
+
+
+[[File:Estuary mod music3.jpg]]
+
+
+As you can see, its quite simple. This code shows the duration of the track on the widelist music screen. You can see where the control is positioned, how its aligned and what colour it is. In this case its grey.
+
+As a quick test lets change the colour to yellow! Just change "<textcolor>grey</textcolor>" to "<textcolor>yellow</textcolor>". Go back to Kodi and hit F5 on the keyboard and all your track lengths go yellow!
+
+
+[[File:Estuary_mod_music4.jpg]]
+
+
+Magic! Now lets try adding some text instead of the duration, just as a test. Just change "<label>$INFO[ListItem.Label2]</label>" to "<label>Blah!</label>"
+
+
+[[File:Estuary_mod_music6.jpg]]
+
+
+OK so that was fun, but its probably best to change that back now. Undo(ctrl + z) and redo(ctrl + y) are your friends while testing :)
+
+So lets actually get on with our modification, what we need to do is find out what label the user rating is. To find this out we need to look in the "includes.xml" file as the rating star resides in there as its a re-usable element all over the skin.
+
+You can do a quick text search "Ctrl + s" and look for "rating". Easy huh!
+
+
+[[File:Estuary_mod_music5.jpg]]
+
+
+This looks quite complicated (and it is a little due to the settings in there) but actually it just shows a rating "circle" with either the user or the overall rating inside it.
+
+What we are really looking for here is the infolabel string. We've circled it above as ListItem.UserRating so lets copy (Ctrl + c) that simple string for use later.
+
+We don't need to do anything more with the includes file at this time but hopefully you can see the power of using re-usable elements in this file.
+
+So now go back to your "View_55_WideList.xml" file and lets add a new control. All we are going to do is copy the duration control to just below.
+
+
+[[File:Estuary_mod_music7.jpg]]
+
+
+As you can see from the screenshot we now have a new control which has been modified with a few new values.
+
+We've changed the position of the control to be slightly to the left of the song duration control.
+
+We've also changed the colour to yellow and the label to our rating listitem. In this case its: "$INFO[ListItem.UserRating]"
+
+
+[[File:Estuary_mod_music8.jpg]]
+
+Right, that's it. We have managed to get the rating to show on each song track listing. Our objective has been achieved!
+
+This example is obviously not complete, we need to change the control that is selected to also show the rating and possibly change the actual rating to star images but you get the idea!
+
+Editing skins is easy, logical and quick once you get used to it. Good luck and let us know how you get on.
+
+
+== Renaming and Reordering Main Menu Items ==
+
+It is possible to do a few modifications on the main menu if you don't mind editing the Skin files.
+
+The file you need to look at is ''\XML\home.xml'' around where the <control type="fixedlist" id="9000"> starts. If we scan down about to around line 879 you can see the start of the menu items. Estuary starts with movies but as you can see there are different controls for different menu items. The movies control has a label of <label>$LOCALIZE[342]</label> which means that it is translated from somewhere else. If you just wanted to rename movies to something like "My Movies" you could replace that line with <label>My Movies</label>. Of course if you do this, you are going to loose any other translations but you should get the idea.
+
+It is also possible to re-order some menu items. In my case I want Live TV to show at the top as I use it most. All we need to do is move the entire <item></item> node up before the movie <item></item> node.
+
+[[File:Re-order_and_move_Estuary.jpg‎]]
+
+[[File:Re-order_and_move_Estuary_code.jpg‎]]
+
+
+
+== Editing the Video OSD ==
+
+One thing you might want to look at is modifying the Video OSD.
+
+This requires looking at a number of files including:
+
+
+'''OSD Background'''
+
+The OSD background is pretty easy to change. You can find the image in the ''\media\dialogs'' folder of your skin. If you want to create a new one, I would advise making it the width of a 1080p display with some kind of transparency. Make sure you save it as a PNG to preserve the transparency and a dark colour so it can justify against the video background.
+
+The actual XML file to edit here (and for most OSD changes) is the ''DialogueSeekBar.xml'' file. Jump to this control node to find the OSD background search for ''dialog-bg.png'' as below:
+
+     <texture>dialogs/dialog-bg.png</texture>
+
+You can change the width here to something like 90% so that the OSD does not take up the whole screen or resposition it with the ''top'' XML tag.
+
+
+'''Video and Audio Icons'''
+
+We can continue to edit the ''DialogueSeekBar.xml'' file to find the audio and video flag icons. You may wish to reposition these or even create a new control node for them individually as currently they are all grouped together.
+
+     <param name="texture" value="$INFO[VideoPlayer.AudioChannels,flags/audiochannel/,.png]" />
+
+You can again change the position of the icons or the size inside the control node.
+
+
+
+'''Progress Bar'''
+
+The progress bar is a little tricky as Estuary has a number of places where it can show, but we can start to edit it in the ''DialogueSeekBar.xml'' file again. Just do a search for:
+
+     <info>PVR.EpgEventProgress</info>
+
+Changing the width and height is probably what you want but we can change the color or even the thickness too.
+
+
+
+'''Top screen left'''
+
+Finding out where the top bar strings are located was a lot more tricky but hopefully this article will save others the time in finding it.
+
+The top left hand TV channel and program name are found in the ''variables.xml'' and search for the ''NowPlayingBreadcrumbsVar'' control node.
+
+You can either comment this out or change it from here.
+
+
+
+'''Top screen OSD right'''
+
+The time and video duration is also quite difficult to find. The way I found it in the end (and this trick may help you for other searches) was to use notepad++ search by directory feature to look for the localisation string ''31080'' which is the english string ''Ends at'' which shows up in this location.
+
+That search brought me to a file called ''Custom_1109_TopBarOverlay.xml''. Just search for the xml control node that contains ''<label>$INFO[System.Time]</label>''. I disabled this and introduced a new control node back in the ''DialogueSeekBar.xml'' file that will show on the actual OSD popup in future. But again it can be moved or resized as required
+
+
+== Adding new views ==
+
+'''Create the new view include'''
+
+Lets start by copying an existing view, such as the music shift view. Copy the file 'View_500_Wall.xml' to a new file called 'View_503_WideWall.xml'. We are just choosing the next number along in the view list, you can check this by sorting all the XMLs by name and seeing the names of the views includes as seperate files.
+
+'''Include the view in the Nav pages'''
+
+We will need to set the Nav page to actually include the view now. In this example we are setting up a new WideWall view for music so we will need to look at the 'MyMusicNav.xml' file which is the master view for Music.
+
+[[File:Mymusicnav views.png]]
+
+As you can see, we have added in a new custom view number here of '503' which corresponds to the name of the include file we just created.
+
+We also need to include the actual include name in 'MyMusicNav.xml' like so:
+
+[[File:New view include.png]]
+
+Lastly we need to actually include the new XML file in our main 'includes.xml' file like so:
+
+[[File:Include wideWall.png]]
+
+'''Update the view numbers'''
+
+Because we have added a view, we now need to update all the references to the view number in the file. In this case we are changing '500' to '503'
+The easiest way to do this is a quick search and replace in the new 'View_503_WideWall.xml' file. So lets change all references of ID '500' to '503'
+
+'''Update the view label'''
+
+Lastly we need to update the label of the view so we can see it. Find line 20 in the new 'View_503_WideWall.xml' file and change the translation Label (yes the 31102number is confusing buts its a translation label which in English means "Wall").
+
+    <viewtype label="31102">icon</viewtype>
+
+to
+
+    <viewtype label="WideWall">icon</viewtype>
+
+
+Thats it! Congrats, you should now have a new view in Estuary for your WideWall. You can from here start changing where this view is used or parts of the actual view to you liking.
+
+In this example we have simply changed the Thumbnail to a Landscape graphic, a very simple change but with a nice dramatic effect. We also removed the label under the thumb to make it look streamlined.
+
+[[File:WideWall Example small.jpg]]
+
+
+== More advanced edits ==
+
+Just to complete this guide, lets try and add some graphical stars to the widelist view, while also adding the focused stars.
+
+Lets change the code we added earlier to an image control
+
+
+[[File:Estuary_rating_image_control.jpg]]
+
+
+Notice we are now adding an image control, with a texture that is calling a specific filename. In this case it is a star rating of 1-10 with half stars to make it shorter.
+
+And we end up with something like this!
+
+
+[[File:Estuary_rating_mod4.jpg]]
+
+
+Last but not least, we need to add a new control for when the song is in focus by the user. This will ensure that the stars do not disappear when the user moves over each song with the selection bar.
+
+
+[[File:Estuary_rating_image_control.jpg]]
+
+
+So all we have done is copy the same code again and put it this time in the control, that is visible when "HasFocus" is selected.
+
+All done!
+
+== See also ==
+'''Development:'''
+* [[Add-on development]]
+* [[Skinning]]
+
+[[Category:How-to]]
+[[Category:Skin development]]

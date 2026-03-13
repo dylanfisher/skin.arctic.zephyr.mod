@@ -1,0 +1,136 @@
+{{mininav|[[Development]]|[[Add-on development]]|[[Skinning]]}}
+
+==Create the extra includes type xml file==
+
+We start by creating the new include type xml file. This means we are going to extend the current includes.xml file with another file. While making this file is not strictly needed (you could just add the new view in already huge includes.xml) it is recommended for organizing and readability. In this tutorial the new file we are making is named "Viewtype_Banners.xml".
+
+==The content of our viewtype==
+
+This example contains one list with banners and one image control. Before we look at them, notice line 2 and 3 of the content. Line two declares we are dealing with includes. Line 3 declares the name of this (or the first) include in this content.
+
+The first image control is separate from the list, is technically placed behind the list in layer depth (first in code), and it requests the thumb image of the currently focussed item in the list. The list shows the banner and the label of the current item. Make sure "font14" is a supported entry in Font.xml or you won't see the text. The example list also has two visible conditions like: '''Container.Content(tvshows)''', this is because not all media has banners. Lets not keep you any longer, just paste the below in your empty file (don't forget the xml version).
+
+<syntaxhighlight lang="xml">
+<?xml version="1.0" encoding="utf-8"?>
+<includes>
+    <include name="Banners">
+
+        <control type="image">
+            <left>250</left>
+            <top>250</top>
+            <width>300</width>
+            <height>100</height>
+            <texture>$INFO[Container(709).ListItem.Art(thumb)]</texture>
+            <aspectratio>keep</aspectratio>
+            <visible>Control.IsVisible(709)</visible>
+        </control>
+
+        <control type="fixedlist" id="709">
+            <viewtype label="Banners">list</viewtype>
+            <left>351</left>
+            <top>112</top>
+            <width>950</width>
+            <height>550</height>
+            <orientation>vertical</orientation>
+            <focusposition>1</focusposition>
+            <visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
+
+            <itemlayout width="585" height="190">
+
+                <control type="image">
+                    <left>2</left>
+                    <top>13</top>
+                    <width>573</width>
+                    <height>105</height>
+                    <texture>$INFO[ListItem.Art(banner)]</texture>
+                    <aspectratio>stretch</aspectratio>
+                </control>
+                <control type="label">
+                    <left>10</left>
+                    <top>107</top>
+                    <width>633</width>
+                    <height>60</height>
+                    <align>left</align>
+                    <label>$INFO[ListItem.Label]</label>
+                    <font>font14</font>
+                    <textcolor>FFFFFFFF</textcolor>
+                    <selectedcolor>FFFFFFFF</selectedcolor>
+                </control>
+
+            </itemlayout>
+            <focusedlayout width="585" height="190">
+        
+                <control type="image">
+                    <left>2</left>
+                    <top>13</top>
+                    <width>573</width>
+                    <height>105</height>
+                    <texture>$INFO[ListItem.Art(banner)]</texture>
+                    <aspectratio>stretch</aspectratio>
+                </control>
+                <control type="label">
+                    <left>10</left>
+                    <top>107</top>
+                    <width>633</width>
+                    <height>60</height>
+                    <align>left</align>
+                    <label>$INFO[ListItem.Label]</label>
+                    <font>font14</font>
+                    <textcolor>FFFFFFFF</textcolor>
+                    <selectedcolor>FFFFFFFF</selectedcolor>
+                </control>
+
+            </focusedlayout>
+        </control>
+
+    </include>
+</includes>
+</syntaxhighlight>
+
+==Lets make it available in the skin==
+
+Three little things Kodi needs to know about our new viewtype. 
+
+A. '''Open the file includes.xml.''' First we need to actually add the extension of includes.xml that we made (Viewtype_Banners.xml) to includes.xml. So we add the following line to includes.xml
+<syntaxhighlight lang="xml">
+<include file="Viewtype_Banners.xml" />
+</syntaxhighlight>
+
+
+B. '''Open the file MyVideoNav.xml.''' The skin needs to know in what order the viewtypes get flipped through when we press the "next viewtype" button. So the number of our viewtype '''709''' needs to get added inbetween the views tags. This line of code should be near the top.
+<syntaxhighlight lang="xml">
+<views>637,709,501,603,781,50</views>
+</syntaxhighlight>
+
+
+C. '''Open the file MyVideoNav.xml.''' Hey great, you already had it open. Now we add the actual include. What did we name our include again in line 3 of our content? Did we use a capital B? '''<include>Banners</include>''' is what we add. Alright, so maybe you see numbers behind the includes. Kodi does not read those, that is how you format a comment.
+<syntaxhighlight lang="xml">
+<include>Banners</include><!-- 709 -->
+<include>Panel</include><!-- 603 -->
+<include>List</include><!-- 50 --> 
+</syntaxhighlight>
+
+==That's it==
+
+What might be left to do? Well your skin might not have a button to flip through the available viewtypes. So you need to add a button or item to perform this function. Look in the documentation or in the skin if you need an example.
+<syntaxhighlight lang="xml">
+<onclick>Container.NextViewMode</onclick>
+</syntaxhighlight>
+
+Don't forget to refresh the skin to load the new code. 
+
+Now we can head over to our TV Shows (remember it's not available everywhere) to work on our new viewtype.
+
+==Troubleshooting==
+
+Viewtype not showing up? It is possible that the ID you have used for the viewtype is already in use.
+A good editor like Notepad++ will allow you to search your entire 720p (or other resolution) folder for the ID you used.
+You can even include the word id and the quotes around the number.
+
+There are some ID's you can't use. The ones used by the window: [[Window IDs|List of Windows]]
+
+And the ones of the mandatory controls: [[List of Built In Controls|List of Built In Controls]]
+
+Easiest way to know if a number does not belong to a Window or a mandatory control is to look at the numbers used by other skins.
+
+[[Category:Skin_development]]

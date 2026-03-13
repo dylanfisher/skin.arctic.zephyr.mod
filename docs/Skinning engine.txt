@@ -1,0 +1,81 @@
+{{mininav|[[Development]] | [[Skinning]] }}
+
+
+'''On skin load the engine:'''
+
+# Load colors.
+# Load fonts.
+# Load skin strings.
+# Load includes.
+# Load custom skin windows (to determine id, vis conditions + add to the window manager).
+# Load windows that should be loaded at skin start (not on demand) (Busy, ExtendedProgress, Notification, Mute, SeekBar, Volume, Pointer).
+# Activate window.
+
+
+'''On window activate the engine:'''
+
+# Load the XML (if not previously loaded).
+# Resolve includes (if needed - only needed if info conditions have changed).
+# Reset controls on the window, initialize animation states etc.
+# Set last focused control, reinitialize animation states (that may depend on focus).
+# Start rendering, accepting control input etc.
+
+
+'''How the render loop works is basically like this:'''
+
+# Process any messages/actions etc, and update the UI state accordingly.
+# Increment the frame timer for animation etc.
+# Run through all controls and process them. This updates visibility states, updates animation states, updates any sizing, infolabels, colors, starts loading any background textures, or loads on-thread any textures for controls that don't bg load and computes dirty regions.
+# Render if required by dirty-regions (no regions, no render).
+
+Note that number 3 in particular happens once a frame even if nothing changes on screen. Dirty regions just saves having to bother rendering everything again, it doesn't save having to work out if anything has changed.
+
+
+'''Visible conditions:'''
+
+Generally they're evaluated for each control every app loop. So one simple way to reduce them is if they can be done on a group, then do it on the group rather than on each control in the group. There is a cache, however, so they're only actually "worked out" once per frame. e.g. the "Control.HasFocus(10)" is worked out only once, and the result (true/false) is stored. Thus, by reducing them to be done on a group rather than on all controls in the group, what you're doing is saving the lookups into that cache, and the function calls etc. that result. As we move forward, the cache will become more efficient as more variables move to being updated only as needed, rather than every frame.
+
+Some visible conditions are faster than others. Anything that involves some sort of a string processing is slow whereas anything that is basically just a "look up this" where "this" is a boolean state is normally not too bad. Obviously this is a massive generalisation.
+
+Info labels are not cached per frame, so two or more controls using them will look them up separately. Variables, though, are cached, i.e. they're only evaluated once per frame, so a variable that takes the place of a bunch of the same info label lookups might be more efficient (only might, as you're still looking up that variable multiple times).
+
+
+'''ID numbers'''
+
+Generally, IDs should be used where it makes sense. If it doesn't make sense, leaving them blank doesn't hurt in any way. i.e. you need an ID if you're referencing a control or listitem. You don't if you're not. For controls, it's slightly more efficient to not have an ID for controls that don't need one (generally anything that you don't navigate to, or don't need to lookup for conditionals). This is because we use a map for ID lookup so all the "no id" controls get dumped into a bucket that is effectively ignored, meaning the map size is smaller, so lookup is quicker.
+
+
+'''Images/textures'''
+
+The texture managers store a single instance of each texture. Those textures are then shared between controls. Thus, the loading is only ever done once - it's essentially free to use the same texture multiple times on the same window (other than render + setup costs). So icon and it's reflection is a single load (though you're typically diffusing the reflection, so if the diffuse isn't loaded it's 2 anyway).
+
+
+'''Bundled textures'''
+
+If a texture is bundled, then it will be loaded on the app thread, rather than background loaded, regardless of what you specify for the background attribute. Typically textures are read out of the XBT file (i.e. off disk), decompressed, and uploaded to the GPU each time they need to be read (i.e. if they're not already in memory). There has been suggestions that for some platforms, storing the (compressed) textures in memory might be a useful trade-off if they have a particularly slow disk. There's also been other suggestions, such as using texture atlasing (several large textures containing all the little textures). None of these are in mainline, however.
+
+
+'''A single big texture versus multiple small textures'''
+
+You can typically treat scaling by the GPU as free, so if you can make up a large image using smaller images that total less pixels, then that will almost always be a win, especially if it's considerably less pixels. Typically the only thing you need to worry about when textures are scaled is how aliasing may affect things - for flat textures, it doesn't matter at all. Using the border attribute is great for situations where you have a dialog backdrop or similar made up of the edge art where the edges can be stretched without compromising the texture quality, and the middle can be stretched: Essentially it draws as 9 quads (18 triangles) across the texture.
+
+
+'''File existence'''
+
+The simplest way to treat file existence is to simply not use paths you don't know exist (or should exist). i.e. use information from the database, don't try and guess stuff by appending things to listitem.path or similar. I'm not sure if extrafanart can be done in this way or not - need to talk with Martijn et. al. regarding the artwork downloader and how it can properly deal with this sort of art. The problem is that you want to be able to fill the art table in the database with a single URL that corresponds to multiple different images. I *think* a stack:// might be usable for this, but am not sure.
+
+When Kodi tries fails to load a texture (for any reason) we mark it as failed and don't try again next frame. However, we will try again if that same image control changes it's texture path to something else and then back to the same thing (e.g. if you have a shared multiimage control that loads different images when the user focuses a different item - each time they go back to the same item, Kodi will try and load the non-existent directory).
+
+
+'''Skin optimizations'''
+
+* Make your textures as small as you can get away with so they load fast off disk.
+* Background load everything else.
+* For the few platforms that require power of 2 textures, having a 257x513 texture takes up 4 times the texture memory of a 256x512 texture, so where reasonable, limit them down. You need only worry about the cases where you're just a little bit over a power of 2 - the rest don't matter too much.
+* Keep your code clean and simple - if you can use fewer controls, do so. Same with conditions, skin settings etc.
+* Don't unnecessarily make the screen dirty (limit scrolling text to where necessary, don't use pulseonselect etc.)
+* Limit script usage.
+* Make animations what you think is a good speed, then speed them up at least another 25%. Faster is better - it makes things seem snappier which can have a large perceptual difference.
+
+
+[[Category:Skin_development|*]]

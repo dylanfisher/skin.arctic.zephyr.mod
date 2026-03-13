@@ -1,0 +1,145 @@
+{{mininav|[[Development]]|[[Add-on development]]|[[Skinning]]}}
+
+This tutorial will show you how to change the main menu on the Home Screen of the Confluence skin.
+This is achieved by editing [https://github.com/xbmc/xbmc/blob/master/addons/skin.confluence/720p/Home.xml 720p/Home.xml].
+
+
+== How to Reorder the Main Menu ==
+In the relevant Home.xml file, locate for example this piece of code:
+<pre>
+<item id="7">
+    <label>8</label>
+    <onclick>ActivateWindow(Weather)</onclick>
+    <icon>-</icon>
+    <thumb>-</thumb>
+    <visible>!Skin.HasSetting(HomeMenuNoWeatherButton) + !IsEmpty(Weather.Plugin)</visible>
+</item>
+</pre>
+this is the code for the Weather button on the Home menu. It's the first item on the left of the menu.
+You can just cut the piece of code and paste it after for the code for the Music button for instance:
+<pre>
+<item id="3">
+    <label>2</label>
+    <onclick>ActivateWindow(Music)</onclick>
+    <icon>-</icon>
+    <thumb>-</thumb>
+    <visible>!Skin.HasSetting(HomeMenuNoMusicButton)</visible>
+</item>
+</pre>
+
+Now the weather button will show up next to, on the right of, the music button on the Home menu.
+
+As you may have found out by now, Kodi will show the buttons (left to right) in the order they are listed in the xml file.
+
+== How to Change the Function of an item ==
+The homepage of Kodi features the main sections (Programs, Pictures, Videos, Music, Weather, Settings) as separate buttons. This tutorial shows you how to change one of these buttons so that it directly open a certain section of the library.
+
+The action of a button is defined by it's <onclick> function.
+If you look at the code example above, you'll see the Music button uses <onclick>ActivateWindow(Music)</onclick>.
+Clicking on the button will take you either to the Music Library or the Music Files list.
+
+If you prefer to go directly to the artist listing, you can change the function to:
+
+<onclick>ActivateWindow(MusicLibrary,Artists)</onclick>
+
+Other options are listed on the [[Opening_Windows_and_Dialogs]] page
+
+== How to add a new button to the Menu ==
+Let's say you want a button on the menu linking to your kids movies.
+the fist thing you need to do as add the folder containing the kids movies as a source in Kodi.
+This can be done by going to Videos > Files > Add videos
+
+Alternatively, configure the sources.xml in your userdata folder as follows:
+<pre>
+<sources>
+    <video>
+        <default pathversion="1"></default>
+        <source>
+            <name>Kids</name>
+            <path pathversion="1">smb://Kodi/Movies/Kids-Movies/</path>
+        </source>
+    </video>
+<sources>
+</pre>
+
+Adding a button is pretty easy, you can just use the code of one of the other buttons as a template.
+<pre>
+<item id="19">
+    <label>Kids Movies</label>
+    <onclick>ActivateWindow(Videos,Kids)</onclick>
+    <icon>-</icon>
+    <thumb>-</thumb>
+</item>
+</pre>
+The only thing you need to take care of, is to use an unique 'id' for the button.
+In the code above, i've chosen to use id="19" as it's not used elsewhere on the Home menu.
+
+Now we have our code ready, we can simple insert it wherever we want in between the other menu buttons.
+
+== How to add weather labels to a window ==
+
+Kodi has support for displaying some of the more commonly used pieces of information wherever the skinner likes in the skin. This allows skinners to place commonly used information where they think it best belongs.
+
+This tutorial will show you how to setup an image and a couple of text labels to show the current weather details on the [[Basic_controls#Home_Screen|Home Screen]] of the Confluence skin.
+
+We start by opening up [https://github.com/xbmc/xbmc/blob/master/addons/skin.confluence/720p/Home.xml 720p/Home.xml], which is the XML file for the Home window for all resolutions. [[Window IDs|You can find a list of the windows and their XML files here.]]<br />
+
+We find the <controls> section in the XML file, and insert the following XML code after the rest of the <control> blocks. This effectively places it on top of everything else, as controls are rendered in the order that they appear in the XML file.
+
+<source lang="xml">
+<control type="image">
+  <description>Weather conditions</description>
+  <left>1200</left>
+  <top>600</top>
+  <width>48</width>
+  <height>48</height>
+  <texture>$INFO[Weather.Conditions]</texture>
+  <colordiffuse>98FFFFFFF</colordiffuse>
+  <visible effect="fade" time="250">Weather.IsFetched</visible>
+</control>
+
+<control type="label">
+  <description>Weather Temperature</description>
+  <left>1000</left>
+  <top>600</top>
+  <width>200</width>
+  <height>20</height>
+  <label>$INFO[Weather.Temperature]</label>
+  <font>font13</font>
+  <align>left</align>
+  <visible effect="fade" time="250">Weather.IsFetched</visible>
+</control>
+
+<control type="label">
+  <description>Weather Location</description>
+  <left>1000</left>
+  <top>620</top>
+  <width>200</width>
+  <height>20</height>
+  <label>$INFO[Weather.Location]</label>
+  <font>font13</font>
+  <align>left</align>
+  <visible effect="fade" time="250">Weather.IsFetched</visible>
+</control>
+</source>
+
+Note that the above code is making use of $INFO[] label in the [[Image Control|image control]] and in the [[Label_control|label controls]]. A list of the various information available through the $INFO[] label [[InfoLabels|can be found here]]. Kodi fills in the information at runtime for both the labels and the images. Note that the weather icon is displayed in the lower right of the screen, the temperature to the left, and the location that this weather information is for below the temperature. The only other tags of interest here is the <colordiffuse> tag which specifies that the weather icon should be semi-transparent, as the alpha portion of the color is not FF.
+
+== More simple mods ==
+*[[HOW-TO:Add Time Remaining to Confluence]]
+*[[HOW-TO:Add volume value in Confluence]]
+*[[HOW-TO:Change time and date in Confluence]]
+*[[HOW-TO:Change the episode thumbnail in Confluence]]
+*[[HOW-TO:Remove media flags in Confluence]]
+*[[HOW-TO:Remove ratings in Confluence]]
+*[[HOW-TO:Remove the logo in Confluence]]
+*[[HOW-TO:Simplify the seekbar in Confluence]]
+
+
+==See also==
+* [[Add-on development]]
+* [[Skinning]]
+
+[[Category:How-to|Edit the Main Menu (Home Screen)]]
+[[Category:Development]]
+[[Category:Skin development]]

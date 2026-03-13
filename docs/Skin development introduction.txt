@@ -1,0 +1,98 @@
+{{mininav|[[Development]]|[[Add-on development]]|[[Skinning]]}}
+
+{{Kodi}} is noted as having a very flexible and robust framework for its GUI, making theme-skinning and personal customization very accessible. Users can create their own skin (or modify an existing skin) and share it with others.
+
+Kodi includes a new GUI library written from scratch. This library allows you to skin/change everything you see in Kodi, from the images, the sizes and positions of all controls, colours, fonts, and text, through to altering navigation and even adding new functionality. The skin system is quite complex, and this portion of the manual is dedicated to providing in depth information on how it all works, along with tips to make the experience a little more pleasant.<br /><br />
+Kodi skins once installed are located in [[userdata]] addons folder. This is the folder where all skins are placed and listed.
+
+Any additional skins you create or download or install via zip, Kodi will load and ask you if you would like to load the skin and also allow you to load them up from within the Appearance Settings. It is suggested that if you want to make your own skin, then starting by copying an existing skins files over into a new folder (let's say skin.myskin) is a good place to start. Don't forget to modify the addon.xml file and give your new skin a unique addon id.
+You can then edit each of the files as you become more familiar with the skinning system. Try modifying a window or two by adding a button, or altering the textures or layout and test the result of your changes in Kodi.
+<br /><br />
+
+== Anatomy of a Skin ==
+
+Each skin folder contains several subdirectorys, and several files:
+; [[addon.xml|myskin/addon.xml]]
+: This contains the information that Kodi uses to find the other files that Kodi requires to describe it's skin. It also contains credits information, and versioning information.
+; myskin/1080p
+: This is a resolution-specific directory. As Kodi can run in multiple resolutions, your skin can have multiple resolution folders. see: [[Addon.xml|How Window XML Files Are Found]]
+; skin.myskin/backgrounds
+: optional folder containing the background images used in the skin
+; skin.myskin/colors
+: contains a defaults.xml file which is used to define the colours used in the skin
+; skin.myskin/extras
+: optional folder containing any additional items, that don't fit elsewhere
+; skin.myskin/fonts
+: This subdirectory contains all fonts used by the skin. you can add/replace fonts here
+; myskin/language
+: contains several subfolders for each language (English/strings.po). you can define strings used in your skin in this file.
+; myskin/media
+: This subdirectory contains all the media files (.png/.gif/.jpg...) You can replace/edit these as you like. 
+; skin.name/themes
+: optional folder for additional skin themes. Used to store textures in a different colour to create colour themes
+; myskin/resources
+: place 10 screenshots (1280x720) of your skin in here. Name them screenshot-01.jpg, screenshot-02.jpg ect. NOTE: You will need to reference these using the asset tag in the addon.xml
+; myskin/changelog.txt
+: a textfile detailing what has changed in every version of the skin
+; myskin/fanart.jpg
+: a 1280x720 or 1920x1080 jpeg fanart image for your skin
+; myskin/icon.png
+: a 256x256 or 512x512 png image for your skin
+; myskin/LICENSE.txt
+: we recommend to include a Creative Commons license file in your skin: http://creativecommons.org/licenses/
+<br />
+The goal is to keep your skin folder structure as cleanly organized as possible as it makes it easier to troubleshoot problems; this is becomes very important if you are working as part of a Kodi skin creation team.
+
+== Skin Themes ==
+All the basic media files for a skin should be compressed into the Textures.xbt file, and placed in the media/ folder. You can use the tool [[TexturePacker]] for this. All the images that make up the default skin theme should be in the Textures.xbt file.
+
+In addition to this, Kodi allows other .xbt files in the media/ folder, each one representing a different theme for your skin. 
+For instance, you could tint all your main textures a red colour and create a new theme package called Red.xbt. This gives users more choice in the look of a particular skin.<br> 
+Note that only the textures change when you change themes, the layout stays the same. If the user has selected a theme, then when a control requires a texture, Kodi will first look in the <themename>.xbt file for the texture. It will fall back to the Textures.xbt file if <themename>.xbt doesn't contain the image. This means that the theme .xbt files need only contain the changed textures, all other textures will fall-back to using Textures.xbt as usual.
+
+When the user selects a theme, Kodi will automatically also select the theme's default color set, based on the <themename>.xml file located in the colors/ folder. See below for more information.
+
+A suggested method of creating a theme is as follows:
+
+# Run TexturePacker.exe on the folder containing the default texture files, to generate Textures.xbt as you would normally do.
+# Identify the textures you wish to have themed and copy them to a separate folder.
+# Create a separate folder for each theme outside of your normal skin work area, and place the altered copies of each of the textures in them.
+# Run TexturePacker.exe on each of the theme folders created in step 3 to create the themed .xbt files (note you can use the -output switch with TexturePacker.exe to name the theme appropriately).
+# Place Textures.xbt and each of the theme .xbt files in the media/ folder of your skin. Kodi will automatically pick them up.
+
+== Colour Themes ==
+The XML files contained in the colors/ folder contain the different colour themes for the skin. This allows you the skinner to define the colours that you'll use for text and images once in terms of English names (rather than hex codes) and potentially allows you to have different colour themes.
+
+Each additional colour theme has a single XML file, where the filename should be the same as the name of the colour theme (e.g. orange.xml). The default colours should be placed in defaults.xml - this is a fallback file that is used when the user hasn't requested another colour theme, or when their selected colour theme doesn't contain a particular colour assignment.
+
+The layout is as follows (note that the hex code is in ARGB format):
+
+<syntaxhighlight lang="xml" enclose="div">
+<colors>
+  <color name="white">ffffffff</color>
+  <color name="grey">7fffffff</color>
+  <color name="green">ff00ff7f</color>
+</colors>
+</syntaxhighlight>
+
+You can then use <textcolor>white</textcolor> within the main skin files to refer to which colour you want. This allows you to easily change all the colouring in the skin by just adding a new XML file to the colors/ folder.
+
+== Fonts ==
+There's one special file called Font.xml. This file contains a list of all fonts the skin uses. 
+Kodi will load all the fonts mentioned in this file from the /myskin/fonts directory first, and if that fails,
+will attempt to load them from Kodi/media/fonts. In the event that Kodi is unable to locate the specified font, it will default to "font13". You can modify this file as you like and add/delete/change fonts. The user friendly font name is referenced by the other xml files mentioned below.
+
+== The Window XML Files ==
+The other xml files each define the skin for a single window. They all have the same basic layout, allowing you to place different controls on the window, and define how navigation should operate.<br /><br />
+The list of all window .xml files and what they represent is be found in the '''[[Window IDs|Window ID's]]''' section.<br /><br />
+The important thing to remember is that each window has a unique identifying number (id). This is how Kodi identifies the window from within the source code. Furthermore, many of the controls within each window should have a unique id as well, unless they're just used as images or labels where navigation is unimportant and Kodi does not need to be able to identify them uniquely. The window id's are all listed in the [[Window IDs|window list]].<br /><br />
+The structure of the window .xml files can be found in the '''[[Window Structure]]''' section.
+<br /><br />
+
+
+== See also ==
+'''Development:'''
+* [[Add-on development]]
+
+[[Category:Skin_development]]
+[[Category:Add-on development]]

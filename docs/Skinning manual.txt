@@ -1,0 +1,430 @@
+{{TOC right}}{{mininav|[[Development]]|[[Skinning]]}}
+
+Kodi includes a GUI library that allows you to skin/change everything you see in Kodi, from the images, the sizes and positions of all controls, colours, fonts, and text, through to altering navigation and even adding new functionality.<br /><br />
+The skin system is quite complex, and this portion of the manual is dedicated to providing in depth information on how it all works, along with tips to make the experience a little more pleasant.
+
+
+If you are just getting started with skinning Kodi, then it is suggested that the best way to learn is by modifying one of the many existing skins that are available. The default skin, Estuary, includes almost all the various tricks and features that make the Kodi [[Skinning Engine]] so powerful, so is an ideal place to start. You may wish to start by having a look at the "[[Skin_development_introduction|Skinning for Kodi introduction]]" article as well as the [[Skinning|tutorial section on skinning Kodi]], and try modifying a window or two by adding a button, or altering the textures or layout.
+<br />
+
+
+= Anatomy of a Skin =
+Kodi skins, once installed, are located in [[userdata]] addons folder. This is the folder where all skins are placed and listed.<br /><br />
+Any additional skins you create, or download from, or be installed via zip, Kodi will load and ask you if you would like to load the skin and also allow you to load them up from within the Appearance Settings. It is suggested that if you want to make your own skin, then starting by copying an existing skins files over into a new folder (let's say skin/myskin) is a good place to start. You can then edit each of the files as you become more familiar with the skinning system.<br /><br />
+Each skin folder contains several subdirectorys, and one file:
+; myskin/720p
+: This is a resolution-specific directory. Kodi can run in multiple resolutions, and thus can use different files for some resolutions (as there is a big difference between NTSC at 720x480 pixels and 1080i at 1920x1080 pixels!)
+; myskin/backgrounds
+: optional folder containing the background images used in the skin
+; myskin/colors
+: contains a defaults.xml file which is used to define the colours used in the skin
+; myskin/font
+: This subdirectory contains all fonts used by the skin. you can add/replace fonts here
+; myskin/language
+: contains several subfolders for each language (English/strings.po). you can define strings used in your skin in this file.
+; myskin/media
+: This subdirectory contains all the media files (.png/.gif/.jpg...) You can replace/edit these as you like.
+; myskin/resources
+: place your icon.png (a 256x256 or 512x512 png image for your skin), fanart.jpg (a 1280x720 or 1920x1080 jpeg fanart image for your skin) and 10 jpeg screenshots (1280x720) of your skin in here. Name them screenshot01.jpg, screenshot02.jpg ect.
+; [[addon.xml|myskin/addon.xml]]
+: This contains the information that Kodi uses to find the other files that Kodi requires to describe it's skin. It also contains credits information, and versioning information.
+; myskin/LICENSE.txt
+: we recommend to include a Creative Commons license file in your skin:  http://creativecommons.org/licenses/
+[[Addon.xml#Skin specific elements|See here for the order in which it looks for skin files.]]
+
+= Skin Themes =
+All the basic media files for a skin should be compressed into the Textures.xbt file, and placed in the media/ folder. You can use the tool [[TexturePacker]] for this. All the images that make up the default skin theme should be in the Textures.xbt file.
+
+In addition to this, Kodi allows other .xbt files in the media/ folder, each one representing a different theme for your skin.
+For instance, you could tint all your main textures a red colour, and create a new theme package Red.xbt.
+This gives users more choice in the look of a particular skin, and only the textures change when you change themes – the layout stays the same.
+If the user has selected a theme, then when a control requires a texture, Kodi will first look in the <themename>.xbt file for the texture.
+It will fall back to the Textures.xbt file if <themename>.xbt doesn't contain the image. This means that the theme .xbt files need only contain the changed textures – all other textures will fallback to using Textures.xbt as usual.
+
+A suggested method of creating a theme is as follows:
+
+# Run Texturepacker.exe on the folder containing the default texture files, to generate Textures.xbt as you would normally do.
+# Identify the textures you wish to have themed and copy them to a separate folder.
+# Create a separate folder for each theme outside of your normal skin work area, and place the altered copies of each of the textures in them.
+# Run Texturepacker.exe on each of the theme folders created in step 3 to create the themed .xbt files (note you can use the -output switch with Texturepacker.exe to name the theme appropriately).
+# Place Textures.xbt and each of the theme .xbt files in the media/ folder of your skin. Kodi will automatically pick them up.
+
+
+= addon.xml =
+
+{{main|addon.xml}}
+
+
+= Windows =
+== Window Structure ==
+{{#lst:Window Structure|main content}}
+
+
+= Includes =
+The other special (and arguably the most important skinning file of all) is includes.xml. This is, as its title suggests, a place from which you can define the default look, size, and positioning of controls, to save you replicating many of the control's attributes throughout the window .xml files. For instance, you can setup the size, and textures used for a button control, thus allowing you to leave those details out in the rest of the skin files, unless of course you want to override the default look or size etc. in a particular window.<br /><br />
+This is extremely valuable as it allows you to greatly simplify a lot of the work in building a skin. For one thing, it means that once you have include files setup, many of the default parameters for a different resolution can be done by just altering the parameters within the include file(s) for the different resolution.<br /><br />
+You can infact have more than one include file - you can specify the file attribute when including from a different file, allowing you to have an include file dedicated to a particular set of attributes.<br /><br />
+The layout of an includes file is as follows.
+
+<syntaxhighlight lang="XML">
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="whitetext">
+      <textcolor>ffffffff</textcolor>
+    </include>
+    <include file="listdefaults.xml" />
+    <include condition="Skin.HasSetting(extras) file="includes_extras.xml" />
+    <default type="button">
+      <include>whitetext</include>
+    </default>
+    <constant name="leftedge">50</constant>
+</includes>
+</syntaxhighlight>
+
+You'll notice in the above example that we have 4 different types of includes. The first <include> tag basically allows a substitution of the tags underneath it whenever it occurs. For instance, if in a window .xml file you have this:
+
+<syntaxhighlight lang="XML">
+<control type="togglebutton">
+    <include>whitetext</include>
+    ... other tags go here
+</control>
+</syntaxhighlight>
+
+Then it would substitute the <textcolor> tag for where the include tag is. You can have as many includes as you like, and as many tags can be inside an include - even complete controls, or complete control groups.
+
+The second <include> tag in the example demonstrates how to include from a different file. As there is no include name specified, it will include the contents of the entire file at that point.
+
+The <default> tag is similar to an include, except that it is used in every control of that type - even if you don't specify that the control is to use includes. Thus every buttoncontrol will have the whitetext include in it. Note that you can override this by specifying the <textcolor> tag in the buttoncontrol.
+
+And finally, the <constant> tag allows you to define a numeric (floating point) constant by name for use in place of numeric values (<left>, height="" etc.) would otherwise be used. This allows alignment of items using the same position values which can then easily be altered in one place.
+<br /><br />
+
+== Use params in includes ==
+It's possible to pass arbitrary parameters to your includes and then use these values anywhere within the include body. Just so you don't have to copy/paste huge chunks of XML anymore in order to change just a value or two. Includes are now roughly equivalent to "procedures" in programming languages. Here's the final syntax that has been included in Kodi.
+
+'''Include definitions''' are still written within ''<includes>'' tag, usually in ''includes.xml''. But they can now accept parameters:
+
+<syntaxhighlight lang="XML">
+<include name="MyControl">
+    <param name="id"/>
+    <param name="left" default="120"/>
+    <param name="top">225</param>
+    <definition>
+        <control type="image" id="$PARAM[id]">
+            <left>$PARAM[left]</left>
+            <top>$PARAM[top]</top>
+            <width>370</width>
+            <height>40</height>
+            <texture>foo.png</texture>
+        </control>
+    <definition>
+</include>
+</syntaxhighlight>
+
+Here, the first part is called ''parameter list'' and is specified using ''<param>'' tags. When it is present, include body that follows it should be enclosed within ''<definition>'' tag. At the moment, parameter list is optional and is mainly used for specifying default values for parameters (such as ''120'' and ''225'' above), but is otherwise not mandatory.
+
+The above include can be called like this:
+
+<syntaxhighlight lang="XML">
+<include content="MyControl">
+    <param name="id" value="52"/>
+    <param name="left">300</param>
+</include>
+</syntaxhighlight>
+
+This has the exact same effect as if you've written this instead:
+
+<syntaxhighlight lang="XML">
+<include content="MyControl">
+    <control type="image" id="52">
+        <left>300</left>
+        <top>225</top>
+        <width>370</width>
+        <height>40</height>
+        <texture>foo.png</texture>
+    </control>
+</include>
+</syntaxhighlight>
+
+and called it (old-style) like this:
+
+<syntaxhighlight lang="XML">
+<include>MyControl</include>
+</syntaxhighlight>
+
+only without added benefits.
+
+Any appropriate value can be passed as parameter in the new '''include call''', including ''$INFO'' labels, ''$LOCALIZE'', ''$VAR''s, constants, etc. Empty string (''value=""'') can also be passed, for example to override a non-empty default value set in the include definition.
+
+Default values are used as replacement when their parameters are not passed in the include call.
+
+''$PARAM'' references can be specified within both '''tag values and attributes''' inside include body, and are expanded to either actual value passed (if it was passed), default value (if set) or empty string, in that order.
+
+Parameters without default values (such as ''id'' above) are specified for better readability and documentation purposes only, but are otherwise not necessary and can be omitted. This is really a matter of style, and some skinners might prefer writing explicit parameter lists to specify all parameters referenced in the include body. It's a good practice though, as explicit parameter lists might be better utilized in the future versions of Kodi.
+
+If there are no ''<param>'' tags at all, ''<definition>'' can be omitted too. This leads to even shorter syntax:
+
+<syntaxhighlight lang="XML">
+<include name="MyControl">
+    <control type="image" id="$PARAM[id]">
+        <left>$PARAM[left]</left>
+        <top>$PARAM[top]</top>
+        <width>370</width>
+        <height>40</height>
+        <texture>foo.png</texture>
+    </control>
+</include>
+</syntaxhighlight>
+
+Includes can call other (nested) includes and even pass them ''exact'' parameter values that they've got themselves. This is called '''parameter forwarding'''.
+
+<syntaxhighlight lang="XML">
+<include name="MyControl">
+    ...
+    <include name="MyOtherControl">
+        <param name="label">$INFO[Player.Title]</param>
+        <param name="label2" value="x:$PARAM[left]; y:$PARAM[top]"/>
+        <param name="color" value="$PARAM[color]"/>     <!-- forwarding -->
+        <param name="id" value="$PARAM[scrollbarid]"/>  <!-- forwarding -->
+    </include>
+    ...
+</include>
+</syntaxhighlight>
+
+Here, ''$PARAM[color]'' and ''$PARAM[scrollbarid]'' will be forwarded to ''MyOtherControl'' '''only''' if parameters ''color'' and ''scrollbarid'' have actually been passed to ''MyControl'', otherwise the default values for ''color'' and ''id'' (if set in ''MyOtherControl'') will be used instead in the body of ''MyOtherControl''. Composite values containing other characters (such as ''label2'') are not considered as "true" forwarding and always override any default value set in the nested include, even when they expand to empty strings.
+<br /><br />
+
+== Nested ==
+
+The <code>nested</code> element can be used as a placeholder for elements (controls) defined between the start-tag and end-tag of an include element. The nested part can contain anything what is valid in our skin language. Using parameters for the nested XML fragment is also supported.
+
+This is really handy if you want to re-use elements (controls) before and after some variable elements (controls) e.g. a box with a header and footer but variable content.
+
+=== Definition of an include using nested ===
+<syntaxhighlight lang="XML">
+<include name="MyBox">
+  <control type="">
+    ...
+  </control>
+  <control type="group">
+    <top>$PARAM[top]</top>
+    <left>$PARAM[left]</left>
+    ...
+    <nested /> <!-- used to indicate where to place nested elements of the include -->
+    ...
+  </control>
+</include>
+</syntaxhighlight>
+
+=== Use the include with nested elements ===
+<syntaxhighlight lang="XML">
+<include content="MyBox">
+  <param name="top" value="100" />
+  <param name="left" value="200" />
+
+  <!-- nested elements -->
+  <control type="label">
+    ...
+  </control>
+  <control type="group">
+    <control type="label">
+      ...
+    </control>
+  </control>
+</include>
+</syntaxhighlight>
+
+== Variables ==
+Variables make it easier to use conditional infolabels. You can define them in includes.xml, or to keep them separate, you can place them in another file which is included in includes.xml.
+You can include a file in includes.xml by adding a line like this:
+<syntaxhighlight lang="XML">
+<include file="Variables.xml" />
+</syntaxhighlight>
+Variables can be used in any tag that supports infolabels, like the texture, label and visible tags. Instead of having to include two whole controls with a condition, they allow you to just apply the condition to the actual texture or label. Meaning less controls to maintain ect. The values in the variable are read from top to bottom and the first condition that is met gets used. The last value usually has no condition and it's content acts as a fallback. The following example shows the album label if the player has audio, the year if there is no audio and no fallback is used (because there either is or is not any audio).
+<syntaxhighlight lang="XML">
+<variable name="Example">
+  <value  condition="Player.HasAudio">$INFO[ListItem.Album]</value>
+  <value  condition="!Player.HasAudio">$INFO[ListItem.Year]</value>
+  <value></value>
+</variable>
+</syntaxhighlight>
+You can use a variable in a label control like this:
+<syntaxhighlight lang="XML">
+<label>$VAR[Example]</label>
+</syntaxhighlight>
+or when the viariable value is likely to contain commas (,) and/or quotes ("):
+<syntaxhighlight lang="XML">
+<label>$ESCVAR[Example]</label>
+</syntaxhighlight>
+(see $ESCINFO[] for more info on the need to escape strings: http://kodi.wiki/view/Label_Parsing)
+<br /><br />
+
+== Constants ==
+In case you want to re-use a certain value multiple times in your skin, you can define a constant for it:
+<syntaxhighlight lang="XML">
+<constant name="FanartCrossfadeTime">300</constant>
+<constant name="IconCrossfadeTime">300</constant>
+</syntaxhighlight>
+
+you can now reference this value by it's name elsewhere in your skin:
+<syntaxhighlight lang="XML">
+<control type="image">
+  <left>0</left>
+  <top>0</top>
+  <width>256</width>
+  <height>256</height>
+  <texture background="true">$INFO[ListItem.Icon]</texture>
+  <fadetime>IconCrossfadeTime</fadetime>
+</control>
+</syntaxhighlight>
+<br /><br />
+
+== Defaults ==
+for every control type, you can define a default template. for instance here's a template for a button control:
+<syntaxhighlight lang="XML">
+<default type="button">
+  <left>0</left>
+  <top>0</top>
+  <width>700</width>
+  <height>40</height>
+  <label></label>
+  <texturefocus border="20">list-focus.png</texturefocus>
+  <texturenofocus border="20">list-nofocus.png</texturenofocus>
+  <font>font20</font>
+  <textcolor>white</textcolor>
+  <focusedcolor>blue</focusedcolor>
+  <disabledcolor>darkgrey</disabledcolor>
+  <invalidcolor>red</invalidcolor>
+  <textoffsetx>10</textoffsetx>
+  <aligny>center</aligny>
+  <pulseonselect>true</pulseonselect>
+</default>
+</syntaxhighlight>
+
+the benefit of defining defaults is that kodi will use the template everywhere in you skin where a button is used,
+so you don't have to code all of the tags for each and every button. you only have to code the tags that you want to differ from the default template.
+<br /><br />
+
+== Expressions ==
+expressions are useful if you need to use a certain boolean expression several times throughout your skin.
+they can be defined in your includes file like this:
+<syntaxhighlight lang="XML">
+<expression name="HasInfoDialog">Window.IsActive(musicinformation) | Window.IsActive(movieinformation) | Window.IsActive(addoninformation)</expression>
+<expression name="PluginAdvancedLauncher">substring(Container.FolderPath,plugin://plugin.program.advanced.launcher/,left)</expression>
+</syntaxhighlight>
+
+to use an expression in your skin, you can reference them using $EXP[]
+<syntaxhighlight lang="XML">
+<animation condition="$EXP[HasInfoDialog]" effect="fade" start="100" end="0" time="200" tween="sine">Conditional</animation>
+</syntaxhighlight>
+
+<syntaxhighlight lang="XML">
+<visible>$EXP[PluginAdvancedLauncher] + !Window.IsActive(Home)</visible>
+</syntaxhighlight>
+
+expressions can be used in the following tags/attributes:
+* visible
+* enable
+* usealttexture
+* selected
+* condition
+
+= Controls =
+Controls are the substance of your skin. They define everything from buttons, to text labels, to visualization placement. This portion of the manual will explain each and every control in detail.
+== Label Control ==
+{{#lst:Label_control|main content}}
+== Fade Label Control ==
+{{#lst:Fade_label_control|main content}}
+== Button Control ==
+{{#lst:Button control|main content}}
+== Image Control ==
+{{#lst:Image Control|main content}}
+== MultiImage Control ==
+{{#lst:MultiImage Control|main content}}
+== Radio button Control ==
+{{#lst:Radio button control|main content}}
+== Toggle button control ==
+{{#lst:Toggle button control|main content}}
+== Spin Control ==
+{{#lst:Spin_Control|main content}}
+== Settings Spin Control ==
+{{#lst:Settings_Spin_Control|main content}}
+== Slider Control ==
+{{#lst:Slider Control|main content}}
+== Progress Control ==
+{{#lst:Progress Control|main content}}
+== Ranges Control ==
+{{#lst:Ranges Control|main content}}
+== ScrollBar Control ==
+{{#lst:Scroll Bar Control|main content}}
+== Text Box ==
+{{#lst:Text Box|main content}}
+== RSS feed Control ==
+{{#lst:RSS_ticker|main content}}
+== Visualisation Control ==
+{{#lst:Visualisation Control|main content}}
+== Video Control ==
+{{#lst:Video Control|main content}}
+== Mover Control ==
+{{#lst:Mover Control|main content}}
+== Resize Control ==
+{{#lst:Resize control|main content}}
+== Edit Control ==
+{{#lst:Edit Control|main content}}
+== EPGGrid Control ==
+{{#lst:EPGGrid_control|main content}}
+== Gamecontroller Control ==
+{{#lst:Gamecontroller_Control|main content}}
+== GameWindow Control ==
+{{#lst:GameWindow Control|main content}}
+== Group Control ==
+{{#lst:Group Control|main content}}
+== GroupList Control ==
+{{#lst:Group List Control|main content}}
+== List Container ==
+{{#lst:List Container|main content}}
+== Wraplist Container ==
+{{#lst:Wrap List Container|main content}}
+== FixedList Container ==
+{{#lst:Fixed List Container|main content}}
+== Panel Container ==
+{{#lst:Panel Container|main content}}
+
+= Filling containers=
+== Filling containers with static content ==
+{{#lst:Static List Content|main content}}
+
+== Filling containers with dynamic content ==
+{{#lst:Dynamic List Content|main content}}
+
+= Conditional_Visibility =
+Kodi's skinning engine versatility is based upon the fact that the skinner can display and hide portions of the skin using a variety of conditional statements that can be combined to create very user friendly UI implementations. For further information of available variable and how they can be applied.
+{{#lst:Conditional visibility|main content}}
+
+= Animations =
+The Kodi skinning engine supports animations of any control allowing them to rotate, slide, fade or any combination there-of. Combining animations with conditional statements ensure your skin will have stunning effects that appear as professional as a 1st party product.
+== Animating Your Skin ==
+{{#lst:Animating_your_skin|main content}}
+
+= Tweeners =
+{{#lst:Tweeners|main content}}
+
+= Fonts =
+Kodi allows you to customize which fonts are displayed onscreen in the User Interface.
+{{#lst:Fonts|main content}}
+
+= Appendix =
+* [[Window IDs|List of Windows]]
+* [[List_of_boolean_conditions|List of Boolean Conditions]]
+* [[InfoLabels|List of Info Labels]]
+* [[List_of_built-in_functions|List of Built In Functions]]
+* [[List of Built In Controls|List of Built In Controls]]
+* [[Default Icons|List of Default Icons]]
+* [[Skin Optimizations]]
+* [[Debugging via Renderdoc]]
+
+
+
+[[Category:Development]]
+[[Category:Skin development|*]]
+[[Category:Python]]

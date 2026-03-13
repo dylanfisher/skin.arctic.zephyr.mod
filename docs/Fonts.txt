@@ -1,0 +1,129 @@
+{{mininav|[[Development]]|[[Skinning]]}}
+<section begin="main content" />
+There's one special file called Font.xml. This file contains a list of all fonts the skin uses.
+kodi will load all the fonts mentioned in this file from the /myskin/fonts directory first, and if that fails,
+will attempt to load them from Kodi/media/fonts. In the event that Kodi is unable to locate the specified font, it will default to "font13".
+It is required that every skin has a font13 definition in their Font.xml file.
+Apart from that, you can modify this file as you like and add/delete/change fonts. The user friendly font name is referenced by the other xml files mentioned
+below.
+
+== Format of the Font.xml File ==
+The Font.xml file is divided into font sets, which includes a set of fonts used by the skin. Every
+font set must contain the same font names in order for the skin to work with all font sets.
+<syntaxhighlight lang="xml" enclose="div">
+  <?xml version="1.0" encoding="UTF-8"?>
+  <fonts>
+    <fontset id="Default" idloc="31390">
+      <font>
+       ....
+      </font>
+      <font>
+      ....
+      </font>
+      ....
+    </fontset>
+    <fontset id="Arial" idloc="31391">
+      <font>
+      ....
+      </font>
+      ....
+    </fontset>
+  </fonts>
+</syntaxhighlight>
+A font set has the following attributes:
+
+; id
+: Name of the font set. Displayed to the user. Can have any value.
+; idloc
+: Refers to a string in the Skins' language file, so font names can be localized.
+
+It is possible to use includes (eg. <include>MonoSpace</include>) in Font.xml
+There has to be at least one font set with the unicode attribute set to true else languages like Chinese or Korean will not display properly. There is a font called Arialuni.TTF with a size of 20MB. It is a unicode True Type Font and works with all languages Kodi supports.
+
+
+'''Note:''' Kodi will automatically switch to the first available unicode font set if the user selects a language that needs one. This switch will not be made if the currently loaded font set already supports unicode.
+
+== Supported Font Types ==
+=== True type Fonts ===
+True type fonts must have a .ttf suffix. For a true type font it is possible to define the size (default 20)
+and a style ''normal'', ''bold'', ''italics'', or ''bolditalics''. Frodo also includes ''lowercase'' or ''uppercase''. Isengard includes ''capitalize''. Jarvis includes ''lighten''.
+
+Note: Multiple styles can be used by separating them with a space.
+
+Example:
+<syntaxhighlight lang="xml" enclose="div">
+  <font>
+     <name>font12</name>
+     <filename>arial.ttf</name>
+     <size>12</size>
+     <style>uppercase lowercase capitalize bold lighten</style>
+     <aspect>0.75</aspect>
+     <linespacing>1.0</linespacing>
+  </font>
+</syntaxhighlight>
+
+The <aspect> tag specifies the aspect ratio of the font. An aspect of 0.75 means that the width of the font will be 0.75 of the height. By default the aspect is 1.0 for all but the SD 16x9 modes (PAL16x9, NTSC16x9 and 480p16x9) where the aspect ratio is 0.75, due to the stretched pixels.
+
+The <linespacing> tag defines height of each line (sometimes called leading or inteline spacing). By default linespacing is set to 1.0.
+
+== How to add a new Font ==
+
+Font files go in in .kodi/media/fonts (to make them available to all skins), or in the .kodi\addons\skin.myskin\fonts folder
+if the font file is to be used with your skin only.
+
+# Place the TTF ( such as verdana.ttf from your PC (C:\Windows\Fonts)) files in .kodi\media\fonts.
+# Edit the file .kodi\addons\skin.myskin\1080p\Font.xml and duplicate the "Default" section.
+# Change the 'id' to the name of your new font
+# change the filename for each <font> definition to the filename of your name font file.
+# Finally go to settings > interface > skin > fonts and select the new font.
+
+'''Example Font.xml'''
+<source lang="xml">
+<fonts>
+  <fontset id="Default" idloc="31390" unicode="true">
+  <!-- Normal Fonts -->
+    <font>
+      <name>font12</name>
+      <filename>DejaVuSans.ttf</filename>
+      <size>16</size>
+    </font>
+    <font>
+      <name>font12caps</name>
+      <filename>DefaultCaps.ttf</filename>
+      <size>16</size>
+    </font>
+    <font>
+      <name>font13</name>
+      <filename>DejaVuSans.ttf</filename>
+      <size>20</size>
+    </font>
+    ...
+  </fontset>
+
+  <fontset id="MyFont" idloc="31392" unicode="true">
+  <!-- Normal Fonts -->
+    <font>
+      <name>font12</name>
+      <filename>Arial.ttf</filename>
+      <size>16</size>
+    </font>
+    <font>
+      <name>font12caps</name>
+      <filename>Arial.ttf</filename>
+      <size>16</size>
+    </font>
+    <font>
+      <name>font13</name>
+      <filename>Arial.ttf</filename>
+      <size>20</size>
+    </font>
+    ...
+  </fontset>
+</fonts>
+</source>
+
+<section end="main content" />
+
+[[Category:Development]]
+[[Category:Skin development]]
+[[Category:Languages]]
