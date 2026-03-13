@@ -36,6 +36,7 @@
                         <height>325</height>
                         <include content="include.widget.poster">
                             <param name="id" value="55"/>
+                            <param name="reflections" value="false"/>
                             <param name="visible_title_overlay" value="Skin.HasSetting(view.title.overlay)"/>
                         </include>
                     </control>
@@ -45,6 +46,7 @@
                         <height>325</height>
                         <include content="include.widget.poster.focus">
                             <param name="id" value="55"/>
+                            <param name="reflections" value="false"/>
                             <param name="visible_title_overlay" value="Skin.HasSetting(view.title.overlay)"/>
                         </include>
                     </control>
@@ -97,6 +99,7 @@
                         <height>330</height>
                         <include content="include.widget.poster">
                             <param name="id" value="55"/>
+                            <param name="reflections" value="false"/>
                             <param name="visible_title_overlay" value="Skin.HasSetting(view.title.overlay)"/>
                         </include>
                     </control>
@@ -107,6 +110,7 @@
                             <height>330</height>
                             <include content="include.widget.poster.focus">
                                 <param name="id" value="55"/>
+                                <param name="reflections" value="false"/>
                                 <param name="visible_title_overlay" value="Skin.HasSetting(view.title.overlay)"/>
                             </include>
                         </control>
@@ -207,6 +211,7 @@
                         <height>325</height>
                         <include content="include.widget.poster">
                             <param name="id" value="55"/>
+                            <param name="reflections" value="false"/>
                             <param name="visible_title_overlay" value="Skin.HasSetting(view.title.overlay)"/>
                         </include>
                     </control>
@@ -258,6 +263,7 @@
                         <height>325</height>
                         <include content="include.widget.poster.focus">
                             <param name="id" value="55"/>
+                            <param name="reflections" value="false"/>
                             <param name="visible_title_overlay" value="Skin.HasSetting(view.title.overlay)"/>
                         </include>
                     </control>

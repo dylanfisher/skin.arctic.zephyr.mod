@@ -1815,6 +1815,7 @@
                         <bottom>-680</bottom>
                         <aspectratio aligny="bottom">scale</aspectratio>
                         <texture colordiffuse="FloorFade">common/floor.png</texture>
+                        <visible>false</visible>
                     </control>
                     <control type="image" description="Shadow">
                         <width>100%</width>

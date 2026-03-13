@@ -47,6 +47,7 @@
                         <include content="include.widget.poster">
                             <param name="id" value="517"/>
                             <param name="height" value="212"/>
+                            <param name="reflections" value="false"/>
                         </include>
                     </control>
                 </itemlayout>
@@ -56,6 +57,7 @@
                         <include content="include.widget.poster.focus">
                             <param name="id" value="517"/>
                             <param name="height" value="212"/>
+                            <param name="reflections" value="false"/>
                             <param name="glow_top" value="0"/>
                             <param name="glow_height" value="212"/>
                             <param name="glow_left" value="-2"/>

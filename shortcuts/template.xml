@@ -48,7 +48,7 @@
                         <param name="height" value="257"/>
                         <param name="height_reflection" value="257"/>
                         <param name="top" value="238"/>
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                     </include>
                 </itemlayout>
                 <focusedlayout width="178" height="257" condition="!String.IsEqual(Container(300).ListItem.Property(widgetaspect),Square) + ![String.IsEqual(Container(300).ListItem.Property(widgetaspect),Fanart) | String.IsEqual(Container(300).ListItem.Property(widgetaspect),Thumbnail)] + !String.IsEqual(Container(300).ListItem.Property(widget),system)">
@@ -57,7 +57,7 @@
                         <param name="height" value="257"/>
                         <param name="height_reflection" value="257"/>
                         <param name="top" value="238"/>
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                         <param name="glow_left" value="-3"/>
                         <param name="glow_top" value="0"/>
                         <param name="glow_right" value="-2"/>
@@ -71,7 +71,7 @@
                         <param name="distance" value="$SKINSHORTCUTS[distance]"/>
                         <param name="height_reflection" value="257"/>
                         <param name="top" value="238"/>
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                     </include>
                 </itemlayout>
                 <focusedlayout width="254" height="257" condition="String.IsEqual(Container(300).ListItem.Property(widgetaspect),Square) | String.IsEqual(Container(300).ListItem.Property(widget),system)">
@@ -82,7 +82,7 @@
                         <param name="distance" value="$SKINSHORTCUTS[distance]"/>
                         <param name="height_reflection" value="257"/>
                         <param name="top" value="238"/>
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                         <param name="glow_height" value="253"/>
                     </include>
                 </focusedlayout>
@@ -91,7 +91,7 @@
                         <param name="height" value="257"/>
                         <param name="height_reflection" value="257"/>
                         <param name="top" value="238"/>
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                     </include>
                 </itemlayout>
                 <focusedlayout width="445" height="257" condition="String.IsEqual(Container(300).ListItem.Property(widgetaspect),Fanart) + !String.IsEqual(Container(300).ListItem.Property(widget),system)">
@@ -100,7 +100,7 @@
                         <param name="height" value="257"/>
                         <param name="height_reflection" value="257"/>
                         <param name="top" value="238"/>
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                         <param name="glow_left" value="6"/>
                         <param name="glow_top" value="0"/>
                         <param name="glow_right" value="7"/>
@@ -112,7 +112,7 @@
                         <param name="height" value="257"/>
                         <param name="height_reflection" value="257"/>
                         <param name="top" value="238"/>
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                         <param name="clearlogo" value="$SKINSHORTCUTS[widgetclearlogothumb]"/>
                     </include>
                 </itemlayout>
@@ -122,7 +122,7 @@
                         <param name="height" value="257"/>
                         <param name="height_reflection" value="257"/>
                         <param name="top" value="238"/>
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                         <param name="clearlogo" value="$SKINSHORTCUTS[widgetclearlogothumb]"/>
                         <param name="glow_left" value="6"/>
                         <param name="glow_top" value="0"/>
@@ -275,7 +275,7 @@
         <controls>
             <control type="group" id="301$SKINSHORTCUTS[id]1000">
                 <skinshortcuts>visibility</skinshortcuts>
-                <visible>[Integer.IsGreater(Container(301$SKINSHORTCUTS[id]1).NumItems,0) | Container(301$SKINSHORTCUTS[id]1).IsUpdating] + !$EXP[HomeIsVerticalMultiWidgets]</visible>
+                <visible>Integer.IsGreater(Container(301$SKINSHORTCUTS[id]1).NumItems,0) | Container(301$SKINSHORTCUTS[id]1).IsUpdating</visible>
                 <control type="grouplist">
                     <include content="widget.title.label" condition="!Skin.HasSetting(hidewidgettitle)">
                         <param name="focusid" value="301$SKINSHORTCUTS[id]1"/>
@@ -458,7 +458,7 @@
         <controls>
             <control type="group" id="301$SKINSHORTCUTS[id]2000">
                 <skinshortcuts>visibility</skinshortcuts>
-                <visible>[Integer.IsGreater(Container(301$SKINSHORTCUTS[id]2).NumItems,0) | Container(301$SKINSHORTCUTS[id]2).IsUpdating] + !$EXP[HomeIsVerticalMultiWidgets]</visible>
+                <visible>Integer.IsGreater(Container(301$SKINSHORTCUTS[id]2).NumItems,0) | Container(301$SKINSHORTCUTS[id]2).IsUpdating</visible>
                 <control type="grouplist">
                     <include content="widget.title.label" condition="!Skin.HasSetting(hidewidgettitle)">
                         <param name="focusid" value="301$SKINSHORTCUTS[id]2"/>
@@ -626,7 +626,7 @@
         <controls>
             <control type="group" id="301$SKINSHORTCUTS[id]3000">
                 <skinshortcuts>visibility</skinshortcuts>
-                <visible>[Integer.IsGreater(Container(301$SKINSHORTCUTS[id]3).NumItems,0) | Container(301$SKINSHORTCUTS[id]3).IsUpdating] + !$EXP[HomeIsVerticalMultiWidgets]</visible>
+                <visible>Integer.IsGreater(Container(301$SKINSHORTCUTS[id]3).NumItems,0) | Container(301$SKINSHORTCUTS[id]3).IsUpdating</visible>
                 <control type="grouplist">
                     <include content="widget.title.label" condition="!Skin.HasSetting(hidewidgettitle)">
                         <param name="focusid" value="301$SKINSHORTCUTS[id]3"/>
@@ -794,7 +794,7 @@
         <controls>
             <control type="group" id="301$SKINSHORTCUTS[id]4000">
                 <skinshortcuts>visibility</skinshortcuts>
-                <visible>[Integer.IsGreater(Container(301$SKINSHORTCUTS[id]4).NumItems,0) | Container(301$SKINSHORTCUTS[id]4).IsUpdating] + !$EXP[HomeIsVerticalMultiWidgets]</visible>
+                <visible>Integer.IsGreater(Container(301$SKINSHORTCUTS[id]4).NumItems,0) | Container(301$SKINSHORTCUTS[id]4).IsUpdating</visible>
                 <control type="grouplist">
                     <include content="widget.title.label" condition="!Skin.HasSetting(hidewidgettitle)">
                         <param name="focusid" value="301$SKINSHORTCUTS[id]4"/>
@@ -962,7 +962,7 @@
         <controls>
             <control type="group" id="301$SKINSHORTCUTS[id]5000">
                 <skinshortcuts>visibility</skinshortcuts>
-                <visible>[Integer.IsGreater(Container(301$SKINSHORTCUTS[id]5).NumItems,0) | Container(301$SKINSHORTCUTS[id]5).IsUpdating] + !$EXP[HomeIsVerticalMultiWidgets]</visible>
+                <visible>Integer.IsGreater(Container(301$SKINSHORTCUTS[id]5).NumItems,0) | Container(301$SKINSHORTCUTS[id]5).IsUpdating</visible>
                 <control type="grouplist">
                     <include content="widget.title.label" condition="!Skin.HasSetting(hidewidgettitle)">
                         <param name="focusid" value="301$SKINSHORTCUTS[id]5"/>
@@ -1130,7 +1130,7 @@
         <controls>
             <control type="group" id="301$SKINSHORTCUTS[id]6000">
                 <skinshortcuts>visibility</skinshortcuts>
-                <visible>[Integer.IsGreater(Container(301$SKINSHORTCUTS[id]6).NumItems,0) | Container(301$SKINSHORTCUTS[id]6).IsUpdating] + !$EXP[HomeIsVerticalMultiWidgets]</visible>
+                <visible>Integer.IsGreater(Container(301$SKINSHORTCUTS[id]6).NumItems,0) | Container(301$SKINSHORTCUTS[id]6).IsUpdating</visible>
                 <control type="grouplist">
                     <include content="widget.title.label" condition="!Skin.HasSetting(hidewidgettitle)">
                         <param name="focusid" value="301$SKINSHORTCUTS[id]6"/>
@@ -1283,7 +1283,7 @@
                 <include>ScrolltimeWidgetsList</include>
                 <itemlayout height="325" width="222" condition="!String.IsEqual(Container(300).ListItem.Property(widgetaspect),Square) + ![String.IsEqual(Container(300).ListItem.Property(widgetaspect),Fanart) | String.IsEqual(Container(300).ListItem.Property(widgetaspect),Thumbnail)] + !String.IsEqual(Container(300).ListItem.Property(widget),system)">
                     <include content="include.widget.poster">
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                         <param name="height" value="325"/>
                         <param name="top" value="0"/>
                     </include>
@@ -1292,21 +1292,21 @@
                     <include content="include.widget.square">
                         <param name="aspectratio" value="$SKINSHORTCUTS[aspectratio]"/>
                         <param name="distance" value="$SKINSHORTCUTS[distance]"/>
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                         <param name="height" value="325"/>
                         <param name="top" value="0"/>
                     </include>
                 </itemlayout>
                 <itemlayout height="325" width="562" condition="String.IsEqual(Container(300).ListItem.Property(widgetaspect),Fanart) + !String.IsEqual(Container(300).ListItem.Property(widget),system)">
                     <include content="include.widget.fanart">
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                         <param name="height" value="325"/>
                         <param name="top" value="0"/>
                     </include>
                 </itemlayout>
                 <itemlayout height="325" width="562" condition="String.IsEqual(Container(300).ListItem.Property(widgetaspect),Thumbnail) + !String.IsEqual(Container(300).ListItem.Property(widget),system)">
                     <include content="include.widget.thumb">
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                         <param name="clearlogo" value="$SKINSHORTCUTS[widgetclearlogothumb]"/>
                         <param name="height" value="325"/>
                         <param name="top" value="0"/>
@@ -1315,7 +1315,7 @@
                 <focusedlayout height="325" width="222" condition="!String.IsEqual(Container(300).ListItem.Property(widgetaspect),Square) + ![String.IsEqual(Container(300).ListItem.Property(widgetaspect),Fanart) | String.IsEqual(Container(300).ListItem.Property(widgetaspect),Thumbnail)] + !String.IsEqual(Container(300).ListItem.Property(widget),system)">
                     <include content="include.widget.poster.focus">
                         <param name="id" value="301"/>
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                         <param name="height" value="325"/>
                         <param name="top" value="0"/>
                     </include>
@@ -1325,7 +1325,7 @@
                         <param name="id" value="301"/>
                         <param name="aspectratio" value="$SKINSHORTCUTS[aspectratio]"/>
                         <param name="distance" value="$SKINSHORTCUTS[distance]"/>
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                         <param name="height" value="325"/>
                         <param name="top" value="0"/>
                     </include>
@@ -1333,7 +1333,7 @@
                 <focusedlayout height="325" width="562" condition="String.IsEqual(Container(300).ListItem.Property(widgetaspect),Fanart) + !String.IsEqual(Container(300).ListItem.Property(widget),system)">
                     <include content="include.widget.fanart.focus">
                         <param name="id" value="301"/>
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                         <param name="height" value="325"/>
                         <param name="top" value="0"/>
                         <param name="glow_left" value="10"/>
@@ -1343,7 +1343,7 @@
                 <focusedlayout height="325" width="562" condition="String.IsEqual(Container(300).ListItem.Property(widgetaspect),Thumbnail) + !String.IsEqual(Container(300).ListItem.Property(widget),system)">
                     <include content="include.widget.thumb.focus">
                         <param name="id" value="301"/>
-                        <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                        <param name="reflections" value="false"/>
                         <param name="clearlogo" value="$SKINSHORTCUTS[widgetclearlogothumb]"/>
                         <param name="height" value="325"/>
                         <param name="top" value="0"/>
