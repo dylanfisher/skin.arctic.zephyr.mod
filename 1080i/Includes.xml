@@ -915,6 +915,12 @@
             <visible>Window.IsVisible(MyVideoNav.xml) + [Control.IsVisible(53) | Control.IsVisible(55) | Control.IsVisible(58) | Control.IsVisible(500) | Control.IsVisible(517) | Control.IsVisible(555)]</visible>
         </control>
 
+        <control type="image" description="Home Vertical Multi-Widgets Solid Background">
+            <include>Dimensions_Fullscreen</include>
+            <texture colordiffuse="FF1C1C1C">colors/white.png</texture>
+            <visible>Window.IsVisible(Home.xml) + $EXP[HomeIsVerticalMultiWidgets]</visible>
+        </control>
+
         <!-- Trailer Window Home -->
         <include condition="Skin.HasSetting(home.netflix.autoplay.trailer)">TrailerWindow</include>
 
@@ -922,6 +928,7 @@
         <control type="multiimage" description="Fanart">
             <visible>!Skin.HasSetting(EnableEffects)</visible>
             <visible>![Window.IsVisible(MyVideoNav.xml) + [Control.IsVisible(53) | Control.IsVisible(55) | Control.IsVisible(58) | Control.IsVisible(500) | Control.IsVisible(517) | Control.IsVisible(555)]]</visible>
+            <visible>![Window.IsVisible(Home.xml) + $EXP[HomeIsVerticalMultiWidgets]]</visible>
             <include condition="![ [$EXP[HomeIsSpotlight] | $EXP[HomeIsClassic] | $EXP[HomeIsModern]] + Window.IsVisible(home)]">GlobalBackgroundFade</include>
             <visible>!Player.HasMedia | [!Skin.HasSetting(global.showvideo) + Player.HasVideo] | [!Skin.HasSetting(global.showvisualisation) + Player.HasAudio] | [Skin.HasSetting(global.showvisualisation) + String.IsEmpty(Visualisation.Name) + Player.HasAudio]</visible>
             <visible>!Skin.HasSetting(global.hidefanart) | Window.IsVisible(home)</visible>
@@ -940,6 +947,7 @@
         <control type="multiimage" description="Fanart">
             <visible>Skin.HasSetting(EnableEffects) + !Window.IsVisible(home)</visible>
             <visible>![Window.IsVisible(MyVideoNav.xml) + [Control.IsVisible(53) | Control.IsVisible(55) | Control.IsVisible(58) | Control.IsVisible(500) | Control.IsVisible(517) | Control.IsVisible(555)]]</visible>
+            <visible>![Window.IsVisible(Home.xml) + $EXP[HomeIsVerticalMultiWidgets]]</visible>
             <include>GlobalBackgroundFadeBlur</include>
             <visible>!Player.HasMedia | [!Skin.HasSetting(global.showvideo) + Player.HasVideo] | [!Skin.HasSetting(global.showvisualisation) + Player.HasAudio] | [Skin.HasSetting(global.showvisualisation) + String.IsEmpty(Visualisation.Name) + Player.HasAudio]</visible>
             <visible>!Skin.HasSetting(global.hidefanart) | Window.IsVisible(home)</visible>
@@ -959,6 +967,7 @@
         <control type="multiimage" description="Fanart">
             <visible>Skin.HasSetting(EnableEffects) + Window.IsVisible(home)</visible>
             <visible>![Window.IsVisible(MyVideoNav.xml) + [Control.IsVisible(53) | Control.IsVisible(55) | Control.IsVisible(58) | Control.IsVisible(500) | Control.IsVisible(517) | Control.IsVisible(555)]]</visible>
+            <visible>![Window.IsVisible(Home.xml) + $EXP[HomeIsVerticalMultiWidgets]]</visible>
             <include condition="!Skin.HasSetting(BlurOnHome) + !$EXP[HomeIsSpotlight] + !$EXP[HomeIsClassic] + !$EXP[HomeIsModern]">GlobalBackgroundFade</include>
             <include condition="Skin.HasSetting(BlurOnHome)">GlobalBackgroundFadeBlur2</include>
             <visible>!Player.HasMedia | [!Skin.HasSetting(global.showvideo) + Player.HasVideo] | [!Skin.HasSetting(global.showvisualisation) + Player.HasAudio] | [Skin.HasSetting(global.showvisualisation) + String.IsEmpty(Visualisation.Name) + Player.HasAudio]</visible>
@@ -980,6 +989,7 @@
         <control type="image" description="Fanart Fallback always">
             <include>GlobalBackgroundFade</include>
             <visible>![Window.IsVisible(MyVideoNav.xml) + [Control.IsVisible(53) | Control.IsVisible(55) | Control.IsVisible(58) | Control.IsVisible(500) | Control.IsVisible(517) | Control.IsVisible(555)]]</visible>
+            <visible>![Window.IsVisible(Home.xml) + $EXP[HomeIsVerticalMultiWidgets]]</visible>
             <visible>!Player.HasMedia | [!Skin.HasSetting(global.showvideo) + Player.HasVideo] | [!Skin.HasSetting(global.showvisualisation) + Player.HasAudio] | [Skin.HasSetting(global.showvisualisation) + String.IsEmpty(Visualisation.Name) + Player.HasAudio]</visible>
             <include>Dimensions_Fullscreen</include>
             <visible>!Window.IsVisible(home) + Skin.HasSetting(global.hidefanart) + !String.IsEmpty(Skin.String(fanart.fallback))</visible>
