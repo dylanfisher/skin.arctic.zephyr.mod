@@ -2790,7 +2790,10 @@
             <control type="group">
                 <width>222</width>
                 <include content="def_left" condition="$EXP[HomeIsModernMultiWidgets] + !Skin.HasSetting(homemenu.clean.flix)"><param name="left" value="70" /></include>
-                <include content="include.widget.poster">
+                <include content="include.widget.poster.home.imageonly" condition="$EXP[HomeIsVerticalMultiWidgets]">
+                    <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                </include>
+                <include content="include.widget.poster" condition="!$EXP[HomeIsVerticalMultiWidgets]">
                     <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
                 </include>
             </control>
@@ -2983,7 +2986,11 @@
             <control type="group">
                 <width>222</width>
                 <include content="def_left" condition="$EXP[HomeIsModernMultiWidgets] + !Skin.HasSetting(homemenu.clean.flix)"><param name="left" value="70" /></include>
-                <include content="include.widget.poster.focus">
+                <include content="include.widget.poster.focus.home.imageonly" condition="$EXP[HomeIsVerticalMultiWidgets]">
+                    <param name="id" value="$PARAM[shortcutsid]"/>
+                    <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
+                </include>
+                <include content="include.widget.poster.focus" condition="!$EXP[HomeIsVerticalMultiWidgets]">
                     <param name="id" value="$PARAM[shortcutsid]"/>
                     <param name="reflections" value="Skin.HasSetting(home.widgets.show.reflections)"/>
                 </include>

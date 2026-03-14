@@ -1282,50 +1282,11 @@
                 <viewtype label="536">list</viewtype>
                 <include>ScrolltimeWidgetsList</include>
                 <itemlayout height="325" width="222" condition="!String.IsEqual(Container(300).ListItem.Property(widgetaspect),Square) + ![String.IsEqual(Container(300).ListItem.Property(widgetaspect),Fanart) | String.IsEqual(Container(300).ListItem.Property(widgetaspect),Thumbnail)] + !String.IsEqual(Container(300).ListItem.Property(widget),system)">
-                    <control type="group">
-                        <height>325</height>
-                        <include content="include.widget.poster">
-                            <param name="reflections" value="false"/>
-                            <param name="height" value="258"/>
-                            <param name="top" value="0"/>
-                        </include>
-                        <control type="image">
-                            <left>10</left>
-                            <top>259</top>
-                            <width>202</width>
-                            <height>54</height>
-                            <texture colordiffuse="CC111111">common/black-back.png</texture>
-                        </control>
-                        <control type="label">
-                            <left>14</left>
-                            <top>264</top>
-                            <width>194</width>
-                            <height>22</height>
-                            <font>TinyBold</font>
-                            <textcolor>Light1</textcolor>
-                            <label>$INFO[ListItem.Label]</label>
-                        </control>
-                        <control type="label">
-                            <left>14</left>
-                            <top>286</top>
-                            <width>194</width>
-                            <height>18</height>
-                            <font>Flag</font>
-                            <textcolor>Light2</textcolor>
-                            <label>$INFO[ListItem.Year]</label>
-                            <visible>String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)</visible>
-                        </control>
-                        <control type="label">
-                            <left>14</left>
-                            <top>286</top>
-                            <width>194</width>
-                            <height>18</height>
-                            <font>Flag</font>
-                            <textcolor>Light2</textcolor>
-                            <label>$INFO[ListItem.Year]$INFO[ListItem.Director, - ,]</label>
-                            <visible>!String.IsEqual(ListItem.DBType,tvshow) + !String.IsEqual(ListItem.DBType,season) + !String.IsEqual(ListItem.DBType,episode)</visible>
-                        </control>
-                    </control>
+                    <include content="include.widget.poster">
+                        <param name="reflections" value="false"/>
+                        <param name="height" value="258"/>
+                        <param name="top" value="0"/>
+                    </include>
                 </itemlayout>
                 <itemlayout height="325" width="325" condition="String.IsEqual(Container(300).ListItem.Property(widgetaspect),Square) | String.IsEqual(Container(300).ListItem.Property(widget),system)">
                     <include content="include.widget.square">
@@ -1354,47 +1315,26 @@
                 <focusedlayout height="325" width="222" condition="!String.IsEqual(Container(300).ListItem.Property(widgetaspect),Square) + ![String.IsEqual(Container(300).ListItem.Property(widgetaspect),Fanart) | String.IsEqual(Container(300).ListItem.Property(widgetaspect),Thumbnail)] + !String.IsEqual(Container(300).ListItem.Property(widget),system)">
                     <control type="group">
                         <height>325</height>
-                        <include content="include.widget.poster.focus">
-                            <param name="id" value="301"/>
+                        <include content="include.widget.poster">
                             <param name="reflections" value="false"/>
                             <param name="height" value="258"/>
                             <param name="top" value="0"/>
                         </include>
                         <control type="image">
-                            <left>10</left>
-                            <top>259</top>
-                            <width>202</width>
-                            <height>54</height>
-                            <texture colordiffuse="CC111111">common/black-back.png</texture>
+                            <left>3</left>
+                            <top>3</top>
+                            <right>3</right>
+                            <height>205</height>
+                            <texture colordiffuse="$VAR[ColorSquares]" border="20">common/selectbox.png</texture>
+                            <include>Animation.SelectBoxHome</include>
                         </control>
-                        <control type="label">
-                            <left>14</left>
-                            <top>264</top>
-                            <width>194</width>
-                            <height>22</height>
-                            <font>TinyBold</font>
-                            <textcolor>Light1</textcolor>
-                            <label>$INFO[ListItem.Label]</label>
-                        </control>
-                        <control type="label">
-                            <left>14</left>
-                            <top>286</top>
-                            <width>194</width>
-                            <height>18</height>
-                            <font>Flag</font>
-                            <textcolor>Light2</textcolor>
-                            <label>$INFO[ListItem.Year]</label>
-                            <visible>String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)</visible>
-                        </control>
-                        <control type="label">
-                            <left>14</left>
-                            <top>286</top>
-                            <width>194</width>
-                            <height>18</height>
-                            <font>Flag</font>
-                            <textcolor>Light2</textcolor>
-                            <label>$INFO[ListItem.Year]$INFO[ListItem.Director, - ,]</label>
-                            <visible>!String.IsEqual(ListItem.DBType,tvshow) + !String.IsEqual(ListItem.DBType,season) + !String.IsEqual(ListItem.DBType,episode)</visible>
+                        <control type="image">
+                            <left>3</left>
+                            <top>3</top>
+                            <right>3</right>
+                            <height>205</height>
+                            <texture colordiffuse="$VAR[ColorHighlightSelectbox2]" border="20">common/gradient-selectbox.png</texture>
+                            <include>Animation.SelectBoxHome</include>
                         </control>
                     </control>
                 </focusedlayout>
