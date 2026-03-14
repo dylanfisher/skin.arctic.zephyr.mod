@@ -33,7 +33,7 @@
                     </include>
                     <viewtype label="21371">list</viewtype>
                     <include>ScrolltimeViewsList</include>
-                    <itemlayout height="340" width="299.33">
+                    <itemlayout height="404" width="299.33">
                         <control type="group">
                             <height>280</height>
                             <width>280</width>
@@ -55,7 +55,7 @@
                             <selectedcolor>Dark1</selectedcolor>
                         </control>
                     </itemlayout>
-                    <focusedlayout height="340" width="299.33">
+                    <focusedlayout height="404" width="299.33">
                         <control type="group">
                             <height>280</height>
                             <width>280</width>

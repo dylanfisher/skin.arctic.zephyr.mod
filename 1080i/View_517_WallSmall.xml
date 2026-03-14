@@ -41,7 +41,7 @@
                 </include>
                 <viewtype label="31333">list</viewtype>
                 <include>ScrolltimeViewsList</include>
-                <itemlayout height="224" width="148">
+                <itemlayout height="276" width="148">
                     <control type="group">
                         <height>212</height>
                         <include content="include.widget.poster">
@@ -51,7 +51,7 @@
                         </include>
                     </control>
                 </itemlayout>
-                <focusedlayout height="224" width="148">
+                <focusedlayout height="276" width="148">
                     <control type="group">
                         <height>212</height>
                         <include content="include.widget.poster.focus">

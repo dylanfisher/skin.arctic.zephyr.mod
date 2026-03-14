@@ -31,7 +31,7 @@
                 </include>
                 <viewtype label="31521">list</viewtype>
                 <include>ScrolltimeViewsList</include>
-                <itemlayout height="335" width="222">
+                <itemlayout height="398" width="222">
                     <control type="group">
                         <height>325</height>
                         <include content="include.widget.poster">
@@ -41,7 +41,7 @@
                         </include>
                     </control>
                 </itemlayout>
-                <focusedlayout height="335" width="222">
+                <focusedlayout height="398" width="222">
                     <control type="group">
                         <height>325</height>
                         <include content="include.widget.poster.focus">
@@ -206,7 +206,7 @@
                 </include>
                 <viewtype label="31521">list</viewtype>
                 <include>ScrolltimeViewsList</include>
-                <itemlayout height="335" width="222">
+                <itemlayout height="398" width="222">
                     <control type="group">
                         <height>325</height>
                         <include content="include.widget.poster">
@@ -216,7 +216,7 @@
                         </include>
                     </control>
                 </itemlayout>
-                <focusedlayout height="335" width="222">
+                <focusedlayout height="398" width="222">
 
                     <control type="group">
                         <visible>Skin.HasSetting(55wall.slideinfo) + !String.IsEqual(ListItem.Label,..)</visible>

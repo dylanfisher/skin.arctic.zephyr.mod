@@ -3719,21 +3719,37 @@
         <control type="group">
             <visible>!String.IsEqual(ListItem.Label,..)</visible>
             <top>8</top>
-            <control type="image">
-                <top>257</top>
-                <right>10</right>
-                <height>50</height>
-                <left>10</left>
-                <texture colordiffuse="D9333333">common/black-back.png</texture>
+            <control type="label">
+                <top>323</top>
+                <width>180</width>
+                <height>12</height>
+                <left>20</left>
+                <font>Small20</font>
+                <scroll>false</scroll>
+                <textcolor>FFFFFFFF</textcolor>
+                <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
-                <top>255</top>
+                <top>345</top>
                 <width>180</width>
-                <height>50</height>
+                <height>10</height>
                 <left>20</left>
-                <font>Mini</font>
-                <textcolor>PanelWhite100</textcolor>
-                <label>$INFO[ListItem.Label]</label>
+                <font>Small20</font>
+                <scroll>false</scroll>
+                <textcolor>FF8A8A8A</textcolor>
+                <label>$INFO[ListItem.Year]</label>
+                <visible>String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)</visible>
+            </control>
+            <control type="label">
+                <top>345</top>
+                <width>180</width>
+                <height>10</height>
+                <left>20</left>
+                <font>Small20</font>
+                <scroll>false</scroll>
+                <textcolor>FF8A8A8A</textcolor>
+                <label>$INFO[ListItem.Year]$INFO[ListItem.Director, - ,]</label>
+                <visible>!String.IsEqual(ListItem.DBType,tvshow) + !String.IsEqual(ListItem.DBType,season) + !String.IsEqual(ListItem.DBType,episode)</visible>
             </control>
         </control>
     </include>
@@ -4069,7 +4085,17 @@
             <aspectratio scalediffuse="false">scale</aspectratio>
             <texture diffuse="diffuse/widgetposter_new.png" background="true" fallback="DefaultMovies.png">$VAR[PosterImage]</texture>
             <include condition="!Skin.HasSetting(thumbnails.white)">border_texture</include>
-            <visible>!String.IsEqual(ListItem.DBType,genre) + !String.EndsWith(Container.FolderPath,Genres) + !String.IsEqual(ListItem.DBTYPE,studio)</visible>
+            <visible>!Window.IsVisible(Home.xml) + !String.IsEqual(ListItem.DBType,genre) + !String.EndsWith(Container.FolderPath,Genres) + !String.IsEqual(ListItem.DBTYPE,studio)</visible>
+        </control>
+        <control type="image">
+            <left>10</left>
+            <top>10</top>
+            <right>10</right>
+            <bottom>56</bottom>
+            <aspectratio scalediffuse="false">scale</aspectratio>
+            <texture diffuse="diffuse/widgetposter_new.png" background="true" fallback="DefaultMovies.png">$VAR[PosterImage]</texture>
+            <include condition="!Skin.HasSetting(thumbnails.white)">border_texture</include>
+            <visible>Window.IsVisible(Home.xml) + !String.IsEqual(ListItem.DBType,genre) + !String.EndsWith(Container.FolderPath,Genres) + !String.IsEqual(ListItem.DBTYPE,studio)</visible>
         </control>
         <control type="image">
             <left>10</left>
@@ -4097,7 +4123,40 @@
             <texture colordiffuse="BoxWidget" border="4" background="true" infill="false">common/box21.png</texture>
             <visible>!Skin.HasSetting(thumbnails.white) + [String.IsEqual(ListItem.DBType,studio) | String.IsEqual(ListItem.DBType,genre) | String.EndsWith(Container.FolderPath,Genres)]</visible>
         </control>
-        <include condition="$PARAM[visible_title_overlay]">Alternative_Title_Overlay</include>
+            <control type="label">
+                <left>16</left>
+                <right>16</right>
+                <bottom>23</bottom>
+                <height>16</height>
+                <font>Small20</font>
+                <scroll>false</scroll>
+                <textcolor>FFFFFFFF</textcolor>
+                <label>$INFO[ListItem.Label]</label>
+                <visible>Window.IsVisible(Home.xml) + !String.IsEqual(ListItem.DBType,genre) + !String.EndsWith(Container.FolderPath,Genres) + !String.IsEqual(ListItem.DBTYPE,studio)</visible>
+            </control>
+            <control type="label">
+                <left>16</left>
+                <right>16</right>
+                <bottom>5</bottom>
+                <height>14</height>
+                <font>Small20</font>
+                <scroll>false</scroll>
+                <textcolor>FF8A8A8A</textcolor>
+                <label>$INFO[ListItem.Year]</label>
+                <visible>Window.IsVisible(Home.xml) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]</visible>
+            </control>
+        <control type="label">
+            <left>16</left>
+            <right>16</right>
+            <bottom>5</bottom>
+            <height>14</height>
+                <font>Small20</font>
+            <scroll>false</scroll>
+            <textcolor>FF8A8A8A</textcolor>
+            <label>$INFO[ListItem.Year]$INFO[ListItem.Director, - ,]</label>
+            <visible>Window.IsVisible(Home.xml) + !String.IsEqual(ListItem.DBType,tvshow) + !String.IsEqual(ListItem.DBType,season) + !String.IsEqual(ListItem.DBType,episode)</visible>
+        </control>
+        <include condition="$PARAM[visible_title_overlay] | Window.IsVisible(MyVideoNav.xml)">Alternative_Title_Overlay</include>
         <include content="IndicatorPoster" condition="!Skin.HasSetting(hide.markers)">
             <param name="indicatorbackground" value="$PARAM[indicatorbackground]" />
         </include>
@@ -4134,7 +4193,7 @@
             <aspectratio scalediffuse="false">scale</aspectratio>
             <texture diffuse="diffuse/widgetposter_new.png" background="true" fallback="DefaultMovies.png">$VAR[PosterImageOnly]</texture>
         </control>
-        <include condition="$PARAM[visible_title_overlay]">Alternative_Title_Overlay</include>
+        <include condition="$PARAM[visible_title_overlay] | Window.IsVisible(MyVideoNav.xml)">Alternative_Title_Overlay</include>
         <control type="image">
             <left>10</left>
             <top>10</top>

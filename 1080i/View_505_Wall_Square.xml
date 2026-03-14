@@ -31,7 +31,7 @@
                 </include>
                 <viewtype label="31241">list</viewtype>
                 <include>ScrolltimeViewsList</include>
-                <itemlayout height="337" width="222">
+                <itemlayout height="400" width="222">
                     <control type="group">
                         <height>222</height>
                         <include content="include.widget.poster">
@@ -52,7 +52,7 @@
                         <label>$INFO[ListItem.Label]</label>
                     </control>
                 </itemlayout>
-                <focusedlayout height="337" width="222">
+                <focusedlayout height="400" width="222">
                     <control type="group">
                         <height>222</height>
                         <include content="include.widget.poster.focus">
@@ -190,7 +190,7 @@
                 </include>
                 <viewtype label="536">list</viewtype>
                 <include>ScrolltimeViewsList</include>
-                <itemlayout height="337" width="222">
+                <itemlayout height="400" width="222">
                     <control type="group">
                         <height>225</height>
                         <include content="include.widget.poster">
@@ -211,7 +211,7 @@
                         <label>$INFO[ListItem.Label]</label>
                     </control>
                 </itemlayout>
-                <focusedlayout height="337" width="222">
+                <focusedlayout height="400" width="222">
                     <control type="group">
                         <height>225</height>
                         <include content="include.widget.poster.focus">
