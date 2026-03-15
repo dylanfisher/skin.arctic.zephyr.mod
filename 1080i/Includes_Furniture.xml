@@ -604,11 +604,7 @@
     </variable>
 
     <include name="Furniture_Flags_DialogInfo">
-        <control type="group">
-            <include content="Furniture_Flags_Include">
-                <param name="position_low" value="false" />
-            </include>
-        </control>
+        <definition />
     </include>
     
     <include name="Furniture_Flags">

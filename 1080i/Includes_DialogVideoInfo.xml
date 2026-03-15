@@ -730,6 +730,14 @@
                                     <label>[B]$LOCALIZE[2050][/B]</label>
                                     <aligny>center</aligny>
                                 </control>
+                                <control type="label">
+                                    <font>Tiny</font>
+                                    <height>36</height>
+                                    <textcolor>Dark1</textcolor>
+                                    <label>[B]$LOCALIZE[20339][/B]</label>
+                                    <aligny>center</aligny>
+                                    <visible>!String.IsEmpty(ListItem.Director) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director))</visible>
+                                </control>
                             </control>
                             <control type="grouplist">
                                 <orientation>vertical</orientation>
@@ -748,6 +756,14 @@
                                     <textcolor>Dark2</textcolor>
                                     <label fallback="19055">$VAR[LabelDurationTimeCheck]</label>
                                     <aligny>center</aligny>
+                                </control>
+                                <control type="label">
+                                    <height>36</height>
+                                    <font>Tiny</font>
+                                    <textcolor>Dark2</textcolor>
+                                    <label fallback="19055">$VAR[Label_Director]</label>
+                                    <aligny>center</aligny>
+                                    <visible>!String.IsEmpty(ListItem.Director) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director))</visible>
                                 </control>
                             </control>
                             <control type="grouplist">
@@ -812,6 +828,14 @@
                                     <label>[B]$LOCALIZE[2050][/B]</label>
                                     <aligny>center</aligny>
                                 </control>
+                                <control type="label">
+                                    <font>Tiny</font>
+                                    <height>36</height>
+                                    <textcolor>Dark1</textcolor>
+                                    <label>[B]$LOCALIZE[20339][/B]</label>
+                                    <aligny>center</aligny>
+                                    <visible>!String.IsEmpty(ListItem.Director) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director))</visible>
+                                </control>
                             </control>
                             <control type="grouplist">
                                 <orientation>vertical</orientation>
@@ -830,6 +854,14 @@
                                     <textcolor>Dark2</textcolor>
                                     <label fallback="19055">$VAR[LabelDurationTimeCheck]</label>
                                     <aligny>center</aligny>
+                                </control>
+                                <control type="label">
+                                    <height>36</height>
+                                    <font>Tiny</font>
+                                    <textcolor>Dark2</textcolor>
+                                    <label fallback="19055">$VAR[Label_Director]</label>
+                                    <aligny>center</aligny>
+                                    <visible>!String.IsEmpty(ListItem.Director) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director))</visible>
                                 </control>
                             </control>
                             <control type="grouplist">
@@ -850,6 +882,22 @@
                                     <label>[B]$LOCALIZE[563][/B]</label>
                                     <aligny>center</aligny>
                                 </control>
+                                <control type="label">
+                                    <font>Tiny</font>
+                                    <height>36</height>
+                                    <textcolor>Dark1</textcolor>
+                                    <label>[B]Video[/B]</label>
+                                    <aligny>center</aligny>
+                                    <visible>!String.IsEmpty(ListItem.VideoResolution) | !String.IsEmpty(ListItem.VideoCodec) | !String.IsEmpty(ListItem.VideoAspect) | !String.IsEmpty(ListItem.HdrType) | $EXP[IsVideoHDR10Plus] | $EXP[IsVideoHDR10] | $EXP[IsVideoHDR] | $EXP[IsVideoHLG] | $EXP[IsVideoDolbyVision]</visible>
+                                </control>
+                                <control type="label">
+                                    <font>Tiny</font>
+                                    <height>36</height>
+                                    <textcolor>Dark1</textcolor>
+                                    <label>[B]Audio[/B]</label>
+                                    <aligny>center</aligny>
+                                    <visible>!String.IsEmpty(ListItem.AudioCodec) | !String.IsEmpty(ListItem.AudioChannels)</visible>
+                                </control>
                             </control>
                             <control type="grouplist">
                                 <orientation>vertical</orientation>
@@ -868,6 +916,22 @@
                                     <textcolor>Dark2</textcolor>
                                     <label fallback="19055">$VAR[RatingInfo]</label>
                                     <aligny>center</aligny>
+                                </control>
+                                <control type="label">
+                                    <height>36</height>
+                                    <font>Tiny</font>
+                                    <textcolor>Dark2</textcolor>
+                                    <label fallback="19055">$VAR[FooterVideoCodecVar]$INFO[ListItem.VideoResolution,  •  ,]$INFO[ListItem.VideoAspect,  •  ,]$VAR[FooterVideoHDRTypeVar,  •  ,]</label>
+                                    <aligny>center</aligny>
+                                    <visible>!String.IsEmpty(ListItem.VideoResolution) | !String.IsEmpty(ListItem.VideoCodec) | !String.IsEmpty(ListItem.VideoAspect) | !String.IsEmpty(ListItem.HdrType) | $EXP[IsVideoHDR10Plus] | $EXP[IsVideoHDR10] | $EXP[IsVideoHDR] | $EXP[IsVideoHLG] | $EXP[IsVideoDolbyVision]</visible>
+                                </control>
+                                <control type="label">
+                                    <height>36</height>
+                                    <font>Tiny</font>
+                                    <textcolor>Dark2</textcolor>
+                                    <label fallback="19055">$VAR[FooterAudioCodecDisplayVar]$VAR[FooterAudioChannelsVar,  •  ,]</label>
+                                    <aligny>center</aligny>
+                                    <visible>!String.IsEmpty(ListItem.AudioCodec) | !String.IsEmpty(ListItem.AudioChannels)</visible>
                                 </control>
                             </control>
                         </control>
@@ -914,6 +978,7 @@
                         <param name="onup1" value="RunScript(script.embuary.info,call=person,query=$INFO[Container(50).ListItem.Label])"/>
                         <param name="listleft" value="-840"/>
                         <param name="labeltwovisible" value="true"/>
+                        <param name="showcaption" value="true"/>
                         <param name="condition.castfadeout" value="true"/>
                     </include>
 

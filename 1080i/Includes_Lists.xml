@@ -166,6 +166,8 @@
         <param name="labeltwobottom" value="$PARAM[labeltwobottom]" default="-150"/>
         <param name="labelleft" value="$PARAM[labelleft]" default="-20"/>
         <param name="labeltwoleft" value="$PARAM[labeltwoleft]" default="130"/>
+        <param name="showcaption" value="$PARAM[showcaption]" default="false"/>
+        <param name="captionlabel" value="$PARAM[captionlabel]" default="$INFO[ListItem.Label]"/>
         <param name="condition.includecontent" value="$PARAM[condition.includecontent]" default="false"/>
         <param name="condition.isnotsets" value="$PARAM[condition.isnotsets]" default="true"/>
         <param name="condition.issets" value="$PARAM[condition.issets]" default="false"/>
@@ -252,6 +254,7 @@
                     <param name="aspectposter" value="$PARAM[aspectposter]"/>
                     <param name="poster" value="$PARAM[poster]"/>
                     <param name="thumb" value="$PARAM[thumb]"/>
+                    <param name="showcaption" value="$PARAM[showcaption]"/>
                 </include>
                 <include content="DefSetsIconsBackgroundList" condition="$PARAM[condition.issets]">
                     <param name="id" value="0"/>
@@ -303,6 +306,8 @@
                             <param name="fallbackpicture" value="$PARAM[fallbackpicture]"/>
                             <param name="poster" value="$PARAM[poster]"/>
                             <param name="thumb" value="$PARAM[thumb]"/>
+                            <param name="showcaption" value="$PARAM[showcaption]"/>
+                            <param name="captionlabel" value="$PARAM[captionlabel]"/>
                         </include>
                         <include content="DefExtendedInfoSetsContentWIP" condition="$PARAM[condition.issets]">
                             <param name="aspect" value="$PARAM[aspect]" default="scale"/>
@@ -326,6 +331,8 @@
                             <param name="labeltwoleft" value="$PARAM[labeltwoleft]"/>
                             <param name="poster" value="$PARAM[poster]"/>
                             <param name="thumb" value="$PARAM[thumb]"/>
+                            <param name="showcaption" value="$PARAM[showcaption]"/>
+                            <param name="captionlabel" value="$PARAM[captionlabel]"/>
                         </include>
                         <include content="DefExtendedInfoFocusSetsContentWIP" condition="$PARAM[condition.issets]">
                             <param name="fallbackpicture" value="$PARAM[fallbackpicture]"/>

@@ -1209,6 +1209,7 @@
 
     <variable name="FooterVideoCodecVar">
         <value condition="String.IsEqual(ListItem.VideoCodec,av1)">AV1</value>
+        <value condition="String.IsEqual(ListItem.VideoCodec,avc)">AVC</value>
         <value condition="String.IsEqual(ListItem.VideoCodec,avc1)">AVC-1</value>
         <value condition="String.IsEqual(ListItem.VideoCodec,div3) | String.IsEqual(ListItem.VideoCodec,divx) | String.IsEqual(ListItem.VideoCodec,dx50)">DivX</value>
         <value condition="String.IsEqual(ListItem.VideoCodec,flv)">FLV</value>
