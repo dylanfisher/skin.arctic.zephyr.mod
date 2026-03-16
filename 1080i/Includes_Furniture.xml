@@ -629,7 +629,7 @@
             <include content="def_bottom" condition="$PARAM[position_low]">
                 <param name="bottom" value="0" />
             </include>
-            <height>28</height>
+            <height>32</height>
             <width>auto</width>
             <enable>false</enable>
             <align>center</align>
@@ -637,7 +637,7 @@
             <font>Tiny</font>
             <textcolor>FFFFFFFF</textcolor>
             <disabledcolor>FFFFFFFF</disabledcolor>
-            <textoffsetx>12</textoffsetx>
+            <textoffsetx>16</textoffsetx>
             <textoffsety>0</textoffsety>
             <texturefocus border="5" colordiffuse="FF111111">common/box.png</texturefocus>
             <texturenofocus border="5" colordiffuse="FF111111">common/box.png</texturenofocus>

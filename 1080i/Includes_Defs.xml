@@ -2097,21 +2097,26 @@
     <include name="DefMultiWidgetContainer">
         <param name="height" value="$PARAM[height]" default="325"/>
         <param name="orientation" value="$PARAM[orientation]" default="horizontal"/>
+        <param name="top_cleanflix" value="$PARAM[top_cleanflix]" default="200"/>
+        <param name="top_netflix" value="$PARAM[top_netflix]" default="440"/>
+        <param name="top_default" value="$PARAM[top_default]" default="60"/>
+        <param name="top_netflix_reflections" value="$PARAM[top_netflix_reflections]" default="465"/>
+        <param name="top_default_reflections" value="$PARAM[top_default_reflections]" default="50"/>
         <definition>
             <include content="def_top" condition="Skin.HasSetting(homemenu.clean.flix)">
-                <param name="top" value="200" />
+                <param name="top" value="$PARAM[top_cleanflix]" />
             </include>
             <include content="def_top" condition="Skin.HasSetting(homemenu.netflix) + !Skin.HasSetting(home.widgets.show.reflections)">
-                <param name="top" value="440" />
+                <param name="top" value="$PARAM[top_netflix]" />
             </include>
             <include content="def_top" condition="!Skin.HasSetting(homemenu.netflix) + !Skin.HasSetting(home.widgets.show.reflections)">
-                <param name="top" value="60" />
+                <param name="top" value="$PARAM[top_default]" />
             </include>
             <include content="def_top" condition="Skin.HasSetting(homemenu.netflix) + Skin.HasSetting(home.widgets.show.reflections)">
-                <param name="top" value="465" />
+                <param name="top" value="$PARAM[top_netflix_reflections]" />
             </include>
             <include content="def_top" condition="!Skin.HasSetting(homemenu.netflix) + Skin.HasSetting(home.widgets.show.reflections)">
-                <param name="top" value="50" />
+                <param name="top" value="$PARAM[top_default_reflections]" />
             </include>         
             <include content="def_width" condition="Skin.HasSetting(homemenu.clean.flix)">
                 <param name="width" value="225" />

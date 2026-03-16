@@ -3357,6 +3357,7 @@
 
                 <!-- Widget -->
                     <control type="group">
+                        <top>12</top>
                         <animation effect="slide" start="0,0" end="0,148" time="0" condition="String.IsEqual(Container(300).ListItem.Property(widgetBanner),yes)">Conditional</animation>
                         <include>skinshortcuts-template-widget-vertical</include>
                     </control>

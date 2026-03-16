@@ -191,7 +191,7 @@
             <include>ViewSlideForJumpBar</include>
             <control type="panel" id="55">
                 <visible>$EXP[InGameMode] | Container.Content(musicvideos) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(sets) | Container.Content(videos) | Container.Content(favourites)</visible>
-                <top>0</top>
+                <top>55</top>
                 <right>70</right>
                 <left>70</left>
                 <bottom>-12</bottom>
